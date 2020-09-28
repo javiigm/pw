@@ -1,0 +1,7 @@
+javi,gil,moya,27/05/1999,javi@gmail.com,tenis,21
+bea,gil,moya,25/06/1996,bea@hotmail.es,padel,24
+ivan,rodriguez,aguayo,12/09/1999,ivan@hotmail.es,r6s,20
+alejandro,calvo,jimenez,12/06/1999,alejandro@gmail.com,juegos,21
+sergio,muñoz,seneca,26/01/1999,sergio@hotmail.es,fifa,21
+diego,urbano,seneca,28/09/1999,diego@hotmail.es,mafia,21
+antonio,gil,tarin,23/08/1964,antonio@yahoo.es,guitarra,56
