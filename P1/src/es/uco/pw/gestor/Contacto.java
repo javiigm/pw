@@ -3,16 +3,18 @@ package es.uco.pw.gestor;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Properties;
 
 public class Contacto {
 
 	/* Attributes */
+	public String[] intereses = {"tenis","futbol","programacion","videojuegos","musica"};
 	
 	private static Contacto instance = null;
 	
@@ -24,7 +26,7 @@ public class Contacto {
 	
 	private String email;
 	
-	private String intereses;
+	private String interes;
 	
 	private int edad;
 		
@@ -34,20 +36,21 @@ public class Contacto {
 	 * Empty (default) constructor
 	 * */
 	public Contacto() {
+		String[] intereses = {"tenis","futbol","programacion","musica","videojuegos"};
 		this.nombre=null;
 		this.apellidos=null;
 		this.fecha_de_nacimiento=null;
 		this.email=null;
-		this.intereses=null;
+		this.intereses=intereses;
 		this.edad=0;
 	}
 	
-	public Contacto(String nombre, String apellidos, String fecha_de_nacimiento, String email, String intereses, int edad) {
+	public Contacto(String nombre, String apellidos, String fecha_de_nacimiento, String email, String interes, int edad) {
 		this.nombre=nombre;
 		this.apellidos=apellidos;
 		this.fecha_de_nacimiento=fecha_de_nacimiento;
 		this.email=email;
-		this.intereses=intereses;
+		this.interes=interes;
 		this.edad=edad;
 	}
 
@@ -86,12 +89,12 @@ public class Contacto {
 		this.email = email;
 	}
 
-	public String getIntereses() {
-		return intereses;
+	public String getInteres() {
+		return interes;
 	}
 
-	public void setIntereses(String intereses) {
-		this.intereses = intereses;
+	public void setInteres(String interes) {
+		this.interes = interes;
 	}
 	
 	public int getEdad() {
@@ -116,7 +119,7 @@ public class Contacto {
 	public Contacto alta(String nombre, String apellidos, String fecha_de_nacimiento, String email, String intereses, int edad) throws IOException {
 		if(instance != null) {
 			instance = new Contacto(nombre, apellidos, fecha_de_nacimiento, email, intereses, edad);
-	        Writer output = new BufferedWriter(new FileWriter("D:\\Archivos de programa\\eclipse2\\P1\\src\\es\\uco\\pw\\contactos.txt", true));
+	        Writer output = new BufferedWriter(new FileWriter(ficheroContactos(), true));
 	        String[] ap=apellidos.split(" ");
 	        output.append("\n" + nombre + "," + ap[0] + "," + ap[1] + "," + fecha_de_nacimiento + "," + email + "," + intereses + "," + String.valueOf(edad));
 	            
@@ -134,7 +137,7 @@ public class Contacto {
 		        BufferedWriter bw = null;
 		    	ArrayList<String> lineasAcopiar = new ArrayList<String>();
 		    	try{
-		    		br = new BufferedReader(new FileReader("D:\\Archivos de programa\\eclipse2\\P1\\src\\es\\uco\\pw\\contactos.txt"));
+		    		br = new BufferedReader(new FileReader(ficheroContactos()));
 		            while((linea = br.readLine()) != null){
 		                String[] lineaComas = linea.split(",");
 		                if(!email.equals(lineaComas[4])) {
@@ -143,7 +146,7 @@ public class Contacto {
 		            }
 		            br.close();
 		            //RECORREMOS EL VECTOR Y GUARDAMOS LA LINEAS EN EL FICHERO
-		            bw = new BufferedWriter(new FileWriter("D:\\Archivos de programa\\eclipse2\\P1\\src\\es\\uco\\pw\\contactos.txt"));
+		            bw = new BufferedWriter(new FileWriter(ficheroContactos()));
 		            for(int l=0;l<lineasAcopiar.size();l++){
 		                linea = (String)lineasAcopiar.get(l);
 		                bw.write(linea);
@@ -166,56 +169,30 @@ public class Contacto {
 	        System.out.printf("\napellidos: " + c.getApellidos());
 	        System.out.printf("\nfecha de nacimiento: " + c.getFecha_de_nacimiento());
 	        System.out.printf("\nemail: " + email);
-	        System.out.printf("\nintereses: " + c.getIntereses());
+	        System.out.printf("\nintereses: " + c.getInteres());
 	        System.out.printf("\nedad: " + c.getEdad());
 		}
 		return null;
 	}
 	
-	public Contacto actualizacion(String email) throws IOException {
+	public Contacto actualizacion(String email,String cadena,int op) throws IOException {
 		if(instance != null) {
-			Contacto ct = buscarEmail(email);
+			Contacto c = buscarEmail(email);
 			
-			System.out.println("¿Que desea actualizar?");
-			System.out.println("1. Nombre\t2. Apellidos\t3. Fecha de nacimiento\t4. Email\t5. Intereses\t6. Edad");
-			Scanner sc = new Scanner(System.in);
-			int opcion = Integer.parseInt(sc.nextLine());
+				if(op == 1) {
+					c.modificar(email,cadena,op-1);
+				}else if(op == 2) {
+					c.modificar(email,cadena,op-1);
+				}else if(op == 3) {
+					c.modificar(email,cadena,op);
+				}else if(op == 4) {
+					c.modificar(email,cadena,op);
+				}else if(op == 5) {
+					c.modificar(email,cadena,op);
+				}else if(op == 6) {
+					c.modificar(email,cadena,op);
+				}
 			
-			if(opcion == 1) {
-				System.out.println("Introduce el nombre");
-				String nombre = sc.nextLine();
-				sc.close();
-				ct.setNombre(nombre);
-			}else if(opcion == 2) {
-				System.out.println("Introduce los apellidos");
-				String apellidos = sc.nextLine();
-				sc.close();
-				ct.setApellidos(apellidos);
-			}else if(opcion == 3) {
-				System.out.println("Introduce la fecha de nacimiento");
-				String fecha_de_nacimiento = sc.nextLine();
-				sc.close();
-				ct.setFecha_de_nacimiento(fecha_de_nacimiento);
-			}else if(opcion == 4) {
-				System.out.println("Introduce el email");
-				email = sc.nextLine();
-				sc.close();
-				ct.setEmail(email);
-			}else if(opcion == 5) {
-				System.out.println("Introduce los intereses");
-				String intereses = sc.nextLine();
-				sc.close();
-				ct.setIntereses(intereses);
-			}else if(opcion == 6) {
-				System.out.println("Introduce la edad");
-				int edad = sc.nextInt();
-				sc.nextLine();
-				sc.close();
-				ct.setEdad(edad);
-			}else {
-				System.out.println("Ha introducido una opcion incorrecta");
-			}
-			sc.close();
 		}
 		return null;
 	}
@@ -223,8 +200,9 @@ public class Contacto {
 	public Contacto buscarEmail(String email) throws IOException {
 		if(instance != null) {
 			Contacto c = instance;
-			BufferedReader reader = new BufferedReader(new FileReader(new File("D:\\Archivos de programa\\eclipse2\\P1\\src\\es\\uco\\pw\\contactos.txt")));
+			BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroContactos())));
 			String line;
+			Boolean existe_email=false;
 			while((line = reader.readLine()) != null) {
 				String[] linea=line.split(",");
 	            if(email.equals(linea[4])){
@@ -232,11 +210,16 @@ public class Contacto {
 	                c.setApellidos(linea[1] + " " + linea[2]);
 	                c.setFecha_de_nacimiento(linea[3]);
 	                c.setEmail(linea[4]);
-	                c.setIntereses(linea[5]);
+	                c.setInteres(linea[5]);
 	                c.setEdad(Integer.valueOf(linea[6]));
+	                existe_email=true;
 	            }
 	        }
 			reader.close();
+			if(!existe_email) {
+				System.out.println("No se ha encontrado ningun contacto por ese email");
+				System.exit(0);
+			}
 			return c;
 		}
 		return null;
@@ -244,8 +227,9 @@ public class Contacto {
 	
 	public Contacto buscarNombre(String nombre) throws IOException {
 		if(instance != null) {
-			BufferedReader reader = new BufferedReader(new FileReader(new File("D:\\Archivos de programa\\eclipse2\\P1\\src\\es\\uco\\pw\\contactos.txt")));
+			BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroContactos())));
 			String line;
+			Boolean existe_nombre=false;
 			while((line = reader.readLine()) != null) {
 				String[] linea=line.split(",");
 	            if(nombre.equals(linea[0])){
@@ -256,17 +240,49 @@ public class Contacto {
 	                System.out.printf("\nintereses: " + linea[5]);
 	                System.out.printf("\nedad: " + linea[6]);
 	                System.out.println("\n");
+	                existe_nombre=true;
 	            }
 			}
 			reader.close();
+			if(!existe_nombre)
+				System.out.println("No se ha encontrado ningun contacto por ese nombre");
 		}
 		return null;
 	}
 	
+	public Contacto buscarNombreApellidos(String nombre_completo) throws IOException {
+		if(instance != null) {
+			BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroContactos())));
+			String line;
+			Boolean existe_nombre_apellidos=false;
+			while((line = reader.readLine()) != null) {
+				String[] linea=line.split(",");
+	            if(nombre_completo.equals(linea[0] + "," + linea[1] + " " + linea[2])){
+	            	System.out.printf("nombre: " + linea[0]);
+	                System.out.printf("\napellidos: " + linea[1] + " " + linea[2]);
+	                System.out.printf("\nfecha de nacimiento: " + linea[3]);
+	                System.out.printf("\nemail: " + linea[4]);
+	                System.out.printf("\nintereses: " + linea[5]);
+	                System.out.printf("\nedad: " + linea[6]);
+	                System.out.println("\n");
+	                existe_nombre_apellidos=true;
+	            }
+			}
+			reader.close();
+			if(!existe_nombre_apellidos) {
+				System.out.println("No se ha encontrado ningun contacto por ese nombre y apellidos");
+				System.exit(0);
+			}
+		}
+		return null;
+	}
+	
+	
 	public Contacto buscarApellido(String apellido) throws IOException {
 		if(instance != null) {
-			BufferedReader reader = new BufferedReader(new FileReader(new File("D:\\Archivos de programa\\eclipse2\\P1\\src\\es\\uco\\pw\\contactos.txt")));
+			BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroContactos())));
 			String line;
+			Boolean existe_apellido=false;
 			while((line = reader.readLine()) != null) {
 				String[] linea=line.split(",");
 	            if(apellido.equals(linea[1]) || apellido.equals(linea[2])){
@@ -277,38 +293,53 @@ public class Contacto {
 	                System.out.printf("\nintereses: " + linea[5]);
 	                System.out.printf("\nedad: " + linea[6]);
 	                System.out.println("\n");
+	                existe_apellido=true;
 	            }
 			}
 			reader.close();
+			if(!existe_apellido) {
+				System.out.println("No se ha encontrado ningun contacto con ese apellido");
+				System.exit(0);
+			}
 		}
 		return null;
 	}
 	
-	public Contacto buscarIntereses(String intereses) throws IOException {
+	public Contacto buscarInteres(String interes) throws IOException {
 		if(instance != null) {
-			BufferedReader reader = new BufferedReader(new FileReader(new File("D:\\Archivos de programa\\eclipse2\\P1\\src\\es\\uco\\pw\\contactos.txt")));
-			String line;
-			while((line = reader.readLine()) != null) {
-				String[] linea=line.split(",");
-	            if(intereses.equals(linea[5])){
-	            	System.out.printf("nombre: " + linea[0]);
-	                System.out.printf("\napellidos: " + linea[1] + " " + linea[2]);
-	                System.out.printf("\nfecha de nacimiento: " + linea[3]);
-	                System.out.printf("\nemail: " + linea[4]);
-	                System.out.printf("\nintereses: " + linea[5]);
-	                System.out.printf("\nedad: " + linea[6]);
-	                System.out.println("\n");
-	            }
+			Boolean existe_interes = false;
+			for(int i=0; i<intereses.length; i++)
+				if(interes.equals(intereses[i]))
+					existe_interes=true;
+			if(existe_interes) {
+				BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroContactos())));
+				String line;
+				while((line = reader.readLine()) != null) {
+					String[] linea=line.split(",");
+		            if(interes.equals(linea[5])){
+		            	System.out.printf("nombre: " + linea[0]);
+		                System.out.printf("\napellidos: " + linea[1] + " " + linea[2]);
+		                System.out.printf("\nfecha de nacimiento: " + linea[3]);
+		                System.out.printf("\nemail: " + linea[4]);
+		                System.out.printf("\nintereses: " + linea[5]);
+		                System.out.printf("\nedad: " + linea[6]);
+		                System.out.println("\n");
+		            }
+				}
+				reader.close();
+			}else {
+				System.out.println("No se ha encontrado el interes buscado");
+				System.exit(0);
 			}
-			reader.close();
 		}
 		return null;
 	}
 	
 	public Contacto buscarEdad(int edad) throws IOException {
 		if(instance != null) {
-			BufferedReader reader = new BufferedReader(new FileReader(new File("D:\\Archivos de programa\\eclipse2\\P1\\src\\es\\uco\\pw\\contactos.txt")));
+			BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroContactos())));
 			String line;
+			Boolean existe_edad = false;
 			while((line = reader.readLine()) != null) {
 				String[] linea=line.split(",");
 	            if(edad == Integer.valueOf(linea[6])){
@@ -319,11 +350,71 @@ public class Contacto {
 	                System.out.printf("\nintereses: " + linea[5]);
 	                System.out.printf("\nedad: " + linea[6]);
 	                System.out.println("\n");
+	                existe_edad=true;
 	            }
 			}
 			reader.close();
+			if(!existe_edad) {
+				System.out.println("No se ha encontrado ningun contacto con esa edad");
+				System.exit(0);
+			}
 		}
 		return null;
+	}
+	
+	@SuppressWarnings("static-access")
+	public Contacto modificar(String email,String cadena,int op) {
+		if(instance != null) {
+			String[] cad=null;
+			if(op == 1) {
+				cad = cadena.split(" ");
+			}
+			
+	        String linea="";
+	    	BufferedReader br = null;
+	        BufferedWriter bw = null;
+	    	ArrayList<String> lineasAcopiar = new ArrayList<String>();
+	    	try{
+	    		br = new BufferedReader(new FileReader(ficheroContactos()));
+	            while((linea = br.readLine()) != null){
+	                String[] lineaComas = linea.split(",");
+	                if(!email.equals(lineaComas[4])) {
+	                	lineasAcopiar.add(linea);
+	                }
+	                else {
+	                	if(op==1) {
+	                		lineaComas[op]=cad[0];
+	                		lineaComas[op+1]=cad[1];
+	                	}else {
+	                		lineaComas[op] = cadena;
+	                	}
+	                	
+	                	linea=linea.join(",",lineaComas[0],lineaComas[1],lineaComas[2],lineaComas[3],lineaComas[4],lineaComas[5],lineaComas[6]);
+	                	lineasAcopiar.add(linea);
+	                }
+	            }
+	            br.close();
+	            //RECORREMOS EL VECTOR Y GUARDAMOS LA LINEAS EN EL FICHERO
+	            bw = new BufferedWriter(new FileWriter(ficheroContactos()));
+	            for(int l=0;l<lineasAcopiar.size();l++){
+	                linea = (String)lineasAcopiar.get(l);
+	                bw.write(linea);
+	                if(l!=lineasAcopiar.size()-1)
+	                	bw.newLine();
+	            }
+	            bw.close();
+	            System.out.println("El contacto con email " + email + " ha sido actualizado");
+	
+	        }catch(Exception e){System.out.println("Error: " + e);}
+	    	
+	}
+	return null;
+	}
+	
+	public String ficheroContactos() throws FileNotFoundException, IOException {
+		Properties p = new Properties();
+		p.load(new FileReader("D:\\Archivos de programa\\eclipse2\\P1\\src\\.properties"));
+		return p.getProperty("path1");
 	}
 }
 
