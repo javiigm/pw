@@ -14,7 +14,6 @@ import java.util.Properties;
 public class Contacto {
 
 	/* Attributes */
-	public String[] intereses = {"tenis","futbol","programacion","videojuegos","musica"};
 	
 	private static Contacto instance = null;
 	
@@ -36,12 +35,11 @@ public class Contacto {
 	 * Empty (default) constructor
 	 * */
 	public Contacto() {
-		String[] intereses = {"tenis","futbol","programacion","musica","videojuegos"};
 		this.nombre=null;
 		this.apellidos=null;
 		this.fecha_de_nacimiento=null;
 		this.email=null;
-		this.intereses=intereses;
+		this.interes=null;
 		this.edad=0;
 	}
 	
@@ -116,12 +114,12 @@ public class Contacto {
 	
 	
 	
-	public Contacto alta(String nombre, String apellidos, String fecha_de_nacimiento, String email, String intereses, int edad) throws IOException {
+	public Contacto alta(String nombre, String apellidos, String fecha_de_nacimiento, String email, String interes, int edad) throws IOException {
 		if(instance != null) {
-			instance = new Contacto(nombre, apellidos, fecha_de_nacimiento, email, intereses, edad);
+			instance = new Contacto(nombre, apellidos, fecha_de_nacimiento, email, interes, edad);
 	        Writer output = new BufferedWriter(new FileWriter(ficheroContactos(), true));
 	        String[] ap=apellidos.split(" ");
-	        output.append("\n" + nombre + "," + ap[0] + "," + ap[1] + "," + fecha_de_nacimiento + "," + email + "," + intereses + "," + String.valueOf(edad));
+	        output.append("\n" + nombre + "," + ap[0] + "," + ap[1] + "," + fecha_de_nacimiento + "," + email + "," + interes + "," + String.valueOf(edad));
 	            
 	        output.close();
 	        System.out.println("Contacto dado de alta correctamente");
@@ -169,7 +167,7 @@ public class Contacto {
 	        System.out.printf("\napellidos: " + c.getApellidos());
 	        System.out.printf("\nfecha de nacimiento: " + c.getFecha_de_nacimiento());
 	        System.out.printf("\nemail: " + email);
-	        System.out.printf("\nintereses: " + c.getInteres());
+	        System.out.printf("\ninteres: " + c.getInteres());
 	        System.out.printf("\nedad: " + c.getEdad());
 		}
 		return null;
@@ -237,7 +235,7 @@ public class Contacto {
 	                System.out.printf("\napellidos: " + linea[1] + " " + linea[2]);
 	                System.out.printf("\nfecha de nacimiento: " + linea[3]);
 	                System.out.printf("\nemail: " + linea[4]);
-	                System.out.printf("\nintereses: " + linea[5]);
+	                System.out.printf("\ninteres: " + linea[5]);
 	                System.out.printf("\nedad: " + linea[6]);
 	                System.out.println("\n");
 	                existe_nombre=true;
@@ -262,7 +260,7 @@ public class Contacto {
 	                System.out.printf("\napellidos: " + linea[1] + " " + linea[2]);
 	                System.out.printf("\nfecha de nacimiento: " + linea[3]);
 	                System.out.printf("\nemail: " + linea[4]);
-	                System.out.printf("\nintereses: " + linea[5]);
+	                System.out.printf("\ninteres: " + linea[5]);
 	                System.out.printf("\nedad: " + linea[6]);
 	                System.out.println("\n");
 	                existe_nombre_apellidos=true;
@@ -290,7 +288,7 @@ public class Contacto {
 	                System.out.printf("\napellidos: " + linea[1] + " " + linea[2]);
 	                System.out.printf("\nfecha de nacimiento: " + linea[3]);
 	                System.out.printf("\nemail: " + linea[4]);
-	                System.out.printf("\nintereses: " + linea[5]);
+	                System.out.printf("\ninteres: " + linea[5]);
 	                System.out.printf("\nedad: " + linea[6]);
 	                System.out.println("\n");
 	                existe_apellido=true;
@@ -308,8 +306,10 @@ public class Contacto {
 	public Contacto buscarInteres(String interes) throws IOException {
 		if(instance != null) {
 			Boolean existe_interes = false;
-			for(int i=0; i<intereses.length; i++)
-				if(interes.equals(intereses[i]))
+			Properties p = new Properties();
+			p.load(new FileReader("D://Archivos de programa/eclipse2/P1/src/properties"));
+			for(int i=1; i<6; i++)
+				if(interes.equals(p.getProperty("interes"+i)))
 					existe_interes=true;
 			if(existe_interes) {
 				BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroContactos())));
@@ -321,7 +321,7 @@ public class Contacto {
 		                System.out.printf("\napellidos: " + linea[1] + " " + linea[2]);
 		                System.out.printf("\nfecha de nacimiento: " + linea[3]);
 		                System.out.printf("\nemail: " + linea[4]);
-		                System.out.printf("\nintereses: " + linea[5]);
+		                System.out.printf("\ninteres: " + linea[5]);
 		                System.out.printf("\nedad: " + linea[6]);
 		                System.out.println("\n");
 		            }
@@ -347,7 +347,7 @@ public class Contacto {
 	                System.out.printf("\napellidos: " + linea[1] + " " + linea[2]);
 	                System.out.printf("\nfecha de nacimiento: " + linea[3]);
 	                System.out.printf("\nemail: " + linea[4]);
-	                System.out.printf("\nintereses: " + linea[5]);
+	                System.out.printf("\ninteres: " + linea[5]);
 	                System.out.printf("\nedad: " + linea[6]);
 	                System.out.println("\n");
 	                existe_edad=true;
@@ -413,7 +413,7 @@ public class Contacto {
 	
 	public String ficheroContactos() throws FileNotFoundException, IOException {
 		Properties p = new Properties();
-		p.load(new FileReader("D:\\Archivos de programa\\eclipse2\\P1\\src\\.properties"));
+		p.load(new FileReader("D://Archivos de programa/eclipse2/P1/src/properties"));
 		return p.getProperty("path1");
 	}
 }

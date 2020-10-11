@@ -5,3 +5,4 @@ alejandro,calvo,jimenez,12/06/1999,alejandro@gmail.com,videojuegos,21
 diego,urbano,ruiz,28/09/1999,diego@hotmail.es,programacion,21
 antonio,gil,tarin,23/08/1964,antonio@yahoo.es,musica,56
 carlos,ayuso,uco,30/03/1998,carlos@uco.es,musica,22
+pablo,garcia,ruiz,24/08/1999,pablo@uco.es,videojuegos,21

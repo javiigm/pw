@@ -1,5 +1,7 @@
 package es.uco.pw.gestor;
 
+import java.io.FileReader;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class Gestor {
@@ -27,12 +29,17 @@ public class Gestor {
 				String apellidos = sc.nextLine();
 				String fecha_de_nacimiento = sc.nextLine();
 				String email = sc.nextLine();
-				String interes = sc.nextLine();
+
+				Properties p = new Properties();
+				p.load(new FileReader("D://Archivos de programa/eclipse2/P1/src/properties"));
+				System.out.println("Los intereses validos son: 1. " + p.getProperty("interes1") + "\t2. " + p.getProperty("interes2") + "\t3. " + p.getProperty("interes3") + "\t4. " + p.getProperty("interes4") + "\t5. " + p.getProperty("interes5"));
+				
+				int interes = sc.nextInt();
 				int edad = sc.nextInt();
 				sc.nextLine();
 				sc.close();
 				
-				c.alta(nombre, apellidos, fecha_de_nacimiento, email, interes, edad);
+				c.alta(nombre, apellidos, fecha_de_nacimiento, email, p.getProperty("interes"+interes), edad);
 		}
 		else if(opcion == 2) {
 				System.out.println("Introduce el email para dar de baja");
@@ -79,10 +86,15 @@ public class Gestor {
 					c.actualizacion(email3,email,op);
 				}else if(op == 5) {
 					System.out.println("Introduce los intereses");
-					String interes = sc.next();
+					
+					Properties p = new Properties();
+					p.load(new FileReader("D://Archivos de programa/eclipse2/P1/src/properties"));
+					System.out.println("Los intereses validos son: 1. " + p.getProperty("interes1") + "\t2. " + p.getProperty("interes2") + "\t3. " + p.getProperty("interes3") + "\t4. " + p.getProperty("interes4") + "\t5. " + p.getProperty("interes5"));
+					
+					int interes = sc.nextInt();
 					sc.close();
-					c.setInteres(interes);
-					c.actualizacion(email3,interes,op);
+					c.setInteres(p.getProperty("interes"+interes));
+					c.actualizacion(email3,p.getProperty("interes"+interes),op);
 				}else if(op == 6) {
 					System.out.println("Introduce la edad");
 					int edad = sc.nextInt();
@@ -122,12 +134,14 @@ public class Gestor {
 		}
 		else if(opcion == 9) {
 				System.out.println("Introduce los intereses para buscar");
-				System.out.println("Los intereses validos son: 0. " + c.intereses[0] + "\t1. " + c.intereses[1] + "\t2. " + c.intereses[2] + "\t3. " + c.intereses[3] + "\t4. " + c.intereses[4]);
+				Properties p = new Properties();
+				p.load(new FileReader("D://Archivos de programa/eclipse2/P1/src/properties"));
+				System.out.println("Los intereses validos son: 1. " + p.getProperty("interes1") + "\t2. " + p.getProperty("interes2") + "\t3. " + p.getProperty("interes3") + "\t4. " + p.getProperty("interes4") + "\t5. " + p.getProperty("interes5"));
 				int interes1 = sc.nextInt();
 				sc.nextLine();
 				sc.close();
 				
-				c.buscarInteres(c.intereses[interes1]);
+				c.buscarInteres(p.getProperty("interes"+interes1));
 		}
 		else if(opcion == 10) {
 				System.out.println("Introduce la edad para buscar");
