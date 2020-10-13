@@ -307,7 +307,7 @@ public class Contacto {
 		if(instance != null) {
 			Boolean existe_interes = false;
 			Properties p = new Properties();
-			p.load(new FileReader("D://Archivos de programa/eclipse2/P1/src/properties"));
+			p.load(new FileReader("src/properties"));
 			for(int i=1; i<6; i++)
 				if(interes.equals(p.getProperty("interes"+i)))
 					existe_interes=true;
@@ -413,7 +413,7 @@ public class Contacto {
 	
 	public String ficheroContactos() throws FileNotFoundException, IOException {
 		Properties p = new Properties();
-		p.load(new FileReader("D://Archivos de programa/eclipse2/P1/src/properties"));
+		p.load(new FileReader("src/properties"));
 		return p.getProperty("path1");
 	}
 }

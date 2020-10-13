@@ -31,7 +31,7 @@ public class Gestor {
 				String email = sc.nextLine();
 
 				Properties p = new Properties();
-				p.load(new FileReader("D://Archivos de programa/eclipse2/P1/src/properties"));
+				p.load(new FileReader("src/properties"));
 				System.out.println("Los intereses validos son: 1. " + p.getProperty("interes1") + "\t2. " + p.getProperty("interes2") + "\t3. " + p.getProperty("interes3") + "\t4. " + p.getProperty("interes4") + "\t5. " + p.getProperty("interes5"));
 				
 				int interes = sc.nextInt();
@@ -88,7 +88,7 @@ public class Gestor {
 					System.out.println("Introduce los intereses");
 					
 					Properties p = new Properties();
-					p.load(new FileReader("D://Archivos de programa/eclipse2/P1/src/properties"));
+					p.load(new FileReader("src/properties"));
 					System.out.println("Los intereses validos son: 1. " + p.getProperty("interes1") + "\t2. " + p.getProperty("interes2") + "\t3. " + p.getProperty("interes3") + "\t4. " + p.getProperty("interes4") + "\t5. " + p.getProperty("interes5"));
 					
 					int interes = sc.nextInt();
@@ -135,7 +135,7 @@ public class Gestor {
 		else if(opcion == 9) {
 				System.out.println("Introduce los intereses para buscar");
 				Properties p = new Properties();
-				p.load(new FileReader("D://Archivos de programa/eclipse2/P1/src/properties"));
+				p.load(new FileReader("src/properties"));
 				System.out.println("Los intereses validos son: 1. " + p.getProperty("interes1") + "\t2. " + p.getProperty("interes2") + "\t3. " + p.getProperty("interes3") + "\t4. " + p.getProperty("interes4") + "\t5. " + p.getProperty("interes5"));
 				int interes1 = sc.nextInt();
 				sc.nextLine();
