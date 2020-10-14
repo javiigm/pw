@@ -1,11 +1,12 @@
 package es.uco.pw.tablon;
 
+/*
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
 import es.uco.pw.gestor.Contacto;
+*/
 
 public class Anuncio {
 	
@@ -15,7 +16,7 @@ public class Anuncio {
 	private String usuarios_destinatarios;
 	private String cuerpo;
 	private String fecha_de_publicacion;
-	private String tipo;
+	private Type type;
 	private String estado;
 	
 	public int getIdentificador() {
@@ -54,11 +55,11 @@ public class Anuncio {
 	public void setFecha_de_publicacion(String fecha_de_publicacion) {
 		this.fecha_de_publicacion = fecha_de_publicacion;
 	}
-	public String getTipo() {
-		return tipo;
+	public Type getType() {
+		return type;
 	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setType(Type type) {
+		this.type = type;
 	}
 	public String getEstado() {
 		return estado;
@@ -67,6 +68,7 @@ public class Anuncio {
 		this.estado = estado;
 	}
 	
+	/*
 	public Contacto buscarPropietario(String propietario) throws IOException {
 		if(instance != null) {
 			BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroContactos())));
@@ -98,5 +100,5 @@ public class Anuncio {
 		return false;
 	}
 	
-	
+*/
 }
