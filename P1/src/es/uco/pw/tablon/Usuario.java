@@ -18,22 +18,22 @@ public class Usuario extends Contacto {
 	public void EditarAnuncio (Anuncio a) {
 		if(a.getUsuario_propietario()==getEmail())
 		//add cambiar titulo, cuerpo, etc
-		a.setType(Estado.editado);
+		a.setEstado(Estado.editado);
 	}
 	
 	public void GuardarAnuncio (Anuncio a) {
 		if(a.getUsuario_propietario()==getEmail())
-		a.setType(Estado.en_espera);
+		a.setEstado(Estado.en_espera);
 	}
 	
 	public void PublicarAnuncio (Anuncio a) {
 		if(a.getUsuario_propietario()==getEmail())
-		a.setType(Estado.publicado);
+		a.setEstado(Estado.publicado);
 	}
 
 	public void ArchivarAnuncio (Anuncio a) {
 		if(a.getUsuario_propietario()==getEmail())
-		a.setType(Estado.archivado);
+		a.setEstado(Estado.archivado);
 	}	
 	
 	public void BuscarFecha(String fecha) throws IOException {
