@@ -91,33 +91,71 @@ public class Usuario extends Contacto {
 	
 	
 	//seria como buscar por usuario propietario
-	public void BuscarAnuncio (String identificador) throws IOException {
-			BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroAnuncios())));
-			String line;
-			Boolean existe_id=false;
-			while((line = reader.readLine()) != null) {
-				String[] linea=line.split(",");
-	            if(identificador.equals(linea[0])){
-	                existe_id=true;
-	            	System.out.printf("identificador: " + linea[0]);
-	                System.out.printf("\ntitulo: " + linea[1]);
-	                System.out.printf("\npropietario: " + linea[2]);
-	                System.out.printf("\ndestinatarios: " + linea[3]);
-	                System.out.printf("\ncuerpo: " + linea[4]);
-	                System.out.printf("\nfecha: " + linea[5]);
-	                System.out.println("\n");	            
-	                }
-	        }
-			reader.close();
-			if(!existe_id) {
-				System.out.println("No se ha encontrado ningun anuncio por ese email");
-				System.exit(0);
-			}
+	public void MostrarAnuncio (Estado estado) throws IOException {
+		BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroContactos())));
+		String line;
+		Boolean existe_estado=false;
+		while((line = reader.readLine()) != null) {
+			String[] linea=line.split(",");
+            if(estado.equals(linea[7])){
+                existe_estado=true;
+            	System.out.printf("identificador: " + linea[0]);
+                System.out.printf("\ntitulo: " + linea[1]);
+                System.out.printf("\npropietario: " + linea[2]);
+                System.out.printf("\ndestinatarios: " + linea[3]);
+                System.out.printf("\ncuerpo: " + linea[4]);
+                System.out.printf("\nfecha de publicacion: " + linea[5]);
+                System.out.printf("\ntype: " + linea[6]);
+                System.out.printf("\nestado: " + linea[7]);
+                System.out.printf("\ntemas: " + linea[8]);
+                System.out.println("\n");	            
+                }
+        }
+		reader.close();
+		if(!existe_estado) {
+			System.out.println("No se ha encontrado ningun contacto por ese email");
+			System.exit(0);
+		}
+}
+	
+	public Anuncio BuscarAnuncio (int identificador) throws IOException {
+		BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroContactos())));
+		Anuncio a = new Anuncio();
+		String line;
+		Boolean existe_identificador=false;
+		while((line = reader.readLine()) != null) {
+			String[] linea=line.split(",");
+            if(identificador == Integer.valueOf(linea[0])){
+                existe_identificador=true;
+            	a.setIdentificador(Integer.valueOf(linea[0]));
+                a.setTitulo(linea[1]);
+                a.setUsuario_propietario(linea[2]);
+                a.setUsuarios_destinatarios(linea[3]);
+                a.setCuerpo(linea[4]);
+                a.setFecha_de_publicacion(linea[5]);
+                a.setType(Type.valueOf(linea[6]));
+                a.setEstado(Estado.valueOf(linea[7]));
+                a.setTema(Tema.valueOf(linea[8]));
+                }
+        }
+		reader.close();
+		if(!existe_identificador) {
+			System.out.println("No se ha encontrado ningun anuncio por ese email");
+			System.exit(0);
+		}
+		return a;
 	}
 	
-	public String ficheroAnuncios() throws FileNotFoundException, IOException {
+	public String ficheroContactos() throws FileNotFoundException, IOException {
 		Properties p = new Properties();
-		p.load(new FileReader("D:\\Archivos de programa\\eclipse2\\P1\\src\\properties"));
+		p.load(new FileReader("src/properties"));
 		return p.getProperty("path1");
 	}
+	/*
+	public String ficheroAnuncios() throws FileNotFoundException, IOException {
+		Properties p = new Properties();
+		p.load(new FileReader("src/properties"));
+		//se debe poner path2=la ruta del fichero anuncios.txt en el fichero properties
+		return p.getProperty("path2");
+	}*/
 }
