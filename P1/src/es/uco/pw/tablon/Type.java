@@ -1,14 +1,14 @@
 package es.uco.pw.tablon;
 
 /**
- * An enumeration with the type of dish
- * @author Aurora Ramirez
- * @author Jose Raul Romero
+ * An enumeration with the type of the announcement
+ * @author Carlos Ayuso 
+ * @author Javier Gil
  * */
 
 public enum Type {
-	editado,
-	en_espera,
-	publicado,
-	archivado
+	general,
+	tematico,
+	individualizado,
+	flash
 }

@@ -17,7 +17,7 @@ public class Anuncio {
 	private String cuerpo;
 	private String fecha_de_publicacion;
 	private Type type;
-	private String estado;
+	private Estado estado;
 	
 	public int getIdentificador() {
 		return identificador;
@@ -61,44 +61,12 @@ public class Anuncio {
 	public void setType(Type type) {
 		this.type = type;
 	}
-	public String getEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setType(Estado estado) {
 		this.estado = estado;
-	}
-	
-	/*
-	public Contacto buscarPropietario(String propietario) throws IOException {
-		if(instance != null) {
-			BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroContactos())));
-			String line;
-			while((line = reader.readLine()) != null) {
-				String[] linea=line.split(",");
-	            if(propietario.equals(linea[2])){
-	            	System.out.printf("id: " + linea[0]);
-	                System.out.printf("\ntitulo: " + linea[1]);
-	                System.out.printf("\npropietario: " + linea[2]);
-	                System.out.printf("\ndestinatarios: " + linea[3]);
-	                System.out.printf("\ncuerpo: " + linea[4]);
-	                System.out.printf("\nfecha de nacimiento: " + linea[5]);
-	                System.out.println("\n");
-	            }
-			}
-			reader.close();
-			if(!existe_usuario(propietario)) {
-				System.out.println("No se ha encontrado ningun contacto con esa edad");
-				System.exit(0);
-			}
-		}
-		return null;
-	}
-	
-	public Boolean existe_usuario(String usuario) {
-		if(Contacto.buscarEmail(usuario) != null)
-			return true;
-		return false;
-	}
-	
-*/
+	}	
+
 }
+	
