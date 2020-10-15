@@ -92,7 +92,7 @@ public class Usuario extends Contacto {
 	
 	//seria como buscar por usuario propietario
 	public void MostrarAnuncio (Estado estado) throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroContactos())));
+		BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroAnuncios())));
 		String line;
 		Boolean existe_estado=false;
 		while((line = reader.readLine()) != null) {
@@ -119,7 +119,7 @@ public class Usuario extends Contacto {
 }
 	
 	public Anuncio BuscarAnuncio (int identificador) throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroContactos())));
+		BufferedReader reader = new BufferedReader(new FileReader(new File(ficheroAnuncios())));
 		Anuncio a = new Anuncio();
 		String line;
 		Boolean existe_identificador=false;
