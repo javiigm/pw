@@ -18,6 +18,7 @@ public class Anuncio {
 	private String fecha_de_publicacion;
 	private Type type;
 	private Estado estado;
+	private Tema tema;
 	
 	public int getIdentificador() {
 		return identificador;
@@ -66,7 +67,14 @@ public class Anuncio {
 	}
 	public void setEstado(Estado estado) {
 		this.estado = estado;
-	}	
+	}
+	public Tema getTema() {
+		return tema;
+	}
+	public void setTema(Tema tema) {
+		this.tema = tema;
+		
+	}
 
 }
 	
