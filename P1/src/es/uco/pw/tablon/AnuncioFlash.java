@@ -1,5 +1,8 @@
 package es.uco.pw.tablon;
 
+import java.text.ParseException;
+import java.time.LocalDate;
+
 /**
  * A concrete announcement that can only be seen at a specific time.
  * @author Carlos Ayuso Sanchez
@@ -8,21 +11,36 @@ package es.uco.pw.tablon;
 
 public class AnuncioFlash extends Anuncio {
 	
-	private String fecha_inicio;
-	private String fecha_final;
+	private String fecha_ini;
+	private String fecha_fin;
 	
-	public void setfecha_inicio(String fecha_inicio) {
-		this.fecha_inicio = fecha_inicio;
+	public void setFecha_ini(String fecha_ini) {
+		this.fecha_ini = fecha_ini;
 	}
-	public String getfecha_inicio() {
-		return fecha_inicio;
+	public String getFecha_ini() {
+		return fecha_ini;
 	}
 
-	public void setfecha_final(String fecha_final) {
-		this.fecha_final = fecha_final;
+	public void setFecha_fin(String fecha_fin) {
+		this.fecha_fin = fecha_fin;
 	}
-	public String getfecha_final() {
-		return fecha_final;
+	public String getFecha_fin() {
+		return fecha_fin;
 	}
 	
+	public void CompararFechas_ini(Anuncio a,String fecha_ini,String fecha_fin) throws ParseException {
+        LocalDate dt_1 = LocalDate.parse(fecha_ini); 
+        LocalDate dt_2 = LocalDate.parse(fecha_fin); 
+        LocalDate date = LocalDate.now();
+        
+        if (date.isBefore(dt_1)) {  
+            a.setEstado(Estado.en_espera);
+        } 
+        else if (date.isAfter(dt_2)) {  
+        	a.setEstado(Estado.archivado);
+        } 
+        else if (date.isEqual(dt_1) || date.isBefore(dt_2)) {  
+        	a.setEstado(Estado.publicado);
+        }
+	}
 }

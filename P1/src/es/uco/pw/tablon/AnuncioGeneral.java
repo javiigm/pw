@@ -1,9 +1,9 @@
 package es.uco.pw.tablon;
 
 /**
- * A concrete announcement that is public for everyone
+ * A concrete announcement
  * @author Carlos Ayuso Sanchez
- * @author Javier Gil Moya
+ * @author Javier Gil
  * */
 
 public class AnuncioGeneral extends Anuncio {
