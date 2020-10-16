@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"es.uco.pw.gestor"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"es.uco.pw.gestor"},{"l":"es.uco.pw.tablon"}]
