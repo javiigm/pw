@@ -4,23 +4,40 @@ package es.uco.pw.tablon;
  * The concrete factory that creates announcements for
  * clients in the bulletin board.
  * @author Carlos Ayuso Sanchez
- * @author Javier Gil
+ * @author Javier Gil Moya
  * */
 
 
 public class ConcreteAnuncioCreator extends AnuncioCreator {
 	
+	
+	@Override
 	public AnuncioGeneral createAnuncioGeneral() {
-		return null;
+		AnuncioGeneral AnuncioGeneral = new AnuncioGeneral();
+		AnuncioGeneral.setUsuarios_destinatarios(null);
+		AnuncioGeneral.setType(Type.general);
+		return AnuncioGeneral;
 	}
+	
+	@Override
 	public AnuncioTematico createAnuncioTematico() {
-		return null;
+		AnuncioTematico AnuncioTematico = new AnuncioTematico();
+		AnuncioTematico.setType(Type.tematico);
+		return AnuncioTematico;
 	}
+
+	@Override
 	public AnuncioIndividualizado createAnuncioIndividualizado() {
-		return null;
+		AnuncioIndividualizado AnuncioIndividualizado = new AnuncioIndividualizado();
+		AnuncioIndividualizado.setType(Type.individualizado);
+		return AnuncioIndividualizado;		
 	}
+	
+	@Override
 	public AnuncioFlash createAnuncioFlash() {
-		return null;
+		AnuncioFlash AnuncioFlash = new AnuncioFlash();
+		AnuncioFlash.setType(Type.flash);
+		return AnuncioFlash;		
 	}
 
 }
