@@ -4,7 +4,7 @@ import java.io.FileReader;
 import java.util.Properties;
 import java.util.Scanner;
 
-import es.uco.pw.DAO.UserDAO;
+import es.uco.pw.data.dao.UserDAO;
 
 public class Gestor {
 	public static void main(String[] args) throws Throwable {

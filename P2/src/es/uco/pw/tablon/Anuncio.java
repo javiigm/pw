@@ -1,5 +1,8 @@
 package es.uco.pw.tablon;
 
+import es.uco.pw.vo.Estado;
+import es.uco.pw.vo.Type;
+
 /*
 import java.io.BufferedReader;
 import java.io.File;

@@ -5,7 +5,9 @@ import java.util.Hashtable;
 import java.util.Properties;
 import java.util.Scanner;
 
-import es.uco.pw.DAO.UserDAO;
+import es.uco.pw.data.dao.UserDAO;
+import es.uco.pw.vo.Estado;
+import es.uco.pw.vo.Type;
 
 public class Tablon {
 	public static void main(String[] args) throws Throwable {

@@ -11,6 +11,8 @@ import java.io.Writer;
 import java.util.Properties;
 
 import es.uco.pw.gestor.Contacto;
+import es.uco.pw.vo.Estado;
+import es.uco.pw.vo.Type;
 
 public class Usuario extends Contacto {
 	

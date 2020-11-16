@@ -3,6 +3,8 @@ package es.uco.pw.tablon;
 import java.text.ParseException;
 import java.time.LocalDate;
 
+import es.uco.pw.vo.Estado;
+
 /**
  * A concrete announcement that can only be seen at a specific time.
  * @author Carlos Ayuso Sanchez

@@ -1,5 +1,7 @@
 package es.uco.pw.tablon;
 
+import es.uco.pw.vo.Type;
+
 /**
  * The concrete factory that creates announcements for
  * clients in the bulletin board.
