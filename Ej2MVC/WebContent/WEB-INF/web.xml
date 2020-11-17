@@ -7,3 +7,20 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
+
+<context-param>
+  <param-name>dbID</param-name>
+  <param-value></param-value>
+</context-param>
+
+<context-param>
+  <param-name>dbUser</param-name>
+  <param-value>i62aysac</param-value>
+</context-param>
+
+<context-param>
+  <param-name>dbPass</param-name>
+  <param-value>BBDDPW</param-value>
+</context-param>
+
+</web-app>
