@@ -6,7 +6,6 @@
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-</web-app>
 
 <context-param>
   <param-name>dbID</param-name>
