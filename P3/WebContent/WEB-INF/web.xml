@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>P3</display-name>
+	<welcome-file-list>
+		<welcome-file>./index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<error-page>
+        <location>/error.jsp</location>
+    </error-page>
+	<context-param>
+		<param-name>config.properties</param-name>
+		<param-value>/WEB-INF/config.properties</param-value>
+	</context-param>
+	<context-param>
+		<param-name>sql.properties</param-name>
+		<param-value>/WEB-INF/sql.properties</param-value>
+	</context-param>
+	
+	<servlet>
+      <servlet-name>ComprobarLogin</servlet-name>
+     <servlet-class>es.uco.pw.servlet.controller.ComprobarLogin</servlet-class>
+    </servlet>
+    <servlet>
+       <servlet-name>ComprobarRegistro</servlet-name>
+       <servlet-class>es.uco.pw.servlet.controller.ComprobarRegistro</servlet-class>
+    </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>ComprobarLogin</servlet-name>
+    <url-pattern>/ComprobarLogin</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ComprobarRegistro</servlet-name>
+    <url-pattern>/ComprobarRegistro</url-pattern>
+  </servlet-mapping>
+ 
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+	
+</web-app>
