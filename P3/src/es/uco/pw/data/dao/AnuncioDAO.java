@@ -240,9 +240,9 @@ public class AnuncioDAO {
 		return resul;
 	} 
 
-	public static Hashtable<String,String> buscarUsuarioPropietario (String usuario_propietario, InputStream config, InputStream sql) {
+	public static LinkedList<Anuncio> buscarUsuarioPropietario (String usuario_propietario, InputStream config, InputStream sql) {
 		Statement stmt = null; 
-		Hashtable<String,String> resul = null;
+		LinkedList<Anuncio> anuncios = new LinkedList<Anuncio>();
 		try {
 			Connection con=getConnection(config);
 			Properties p = new Properties();
@@ -251,7 +251,7 @@ public class AnuncioDAO {
 			stmt = con.createStatement();
 		    ResultSet rs = stmt.executeQuery(p.getProperty("buscarusuariopropietario") + "'" + usuario_propietario + "'");
 		    while (rs.next()) {
-		    	String identificador = rs.getString("identificador");
+		    	int identificador = Integer.parseInt(rs.getString("identificador"));
 		    	String titulo = rs.getString("titulo");
 		        usuario_propietario = rs.getString("usuario_propietario");
 		        String usuarios_destinatarios = rs.getString("usuarios_destinatarios");
@@ -261,26 +261,9 @@ public class AnuncioDAO {
 		        String estado = rs.getString("estado");
 		        String temas = rs.getString("temas");
 
-		        resul = new Hashtable<String,String>();
-		        resul.put("identificador", identificador);
-		        resul.put("titulo", titulo);
-		        resul.put("usuario_propietario", usuario_propietario);
-		        resul.put("usuarios_destinatarios", usuarios_destinatarios);
-		        resul.put("cuerpo", cuerpo);
-		        resul.put("fecha_de_publicacion", fecha_de_publicacion);
-		        resul.put("type", type);
-		        resul.put("estado", estado);
-		        resul.put("temas", temas);
+		        Anuncio anuncio = new Anuncio(identificador,titulo,usuario_propietario,usuarios_destinatarios,cuerpo,fecha_de_publicacion,type,estado,temas);
+		        anuncios.add(anuncio);
 
-		        System.out.println("identificador: " + resul.get("identificador") + "\n" + 
-						   "titulo: " + resul.get("titulo") + "\n" + 
-						   "usuario propietario: " + resul.get("usuario_propietario") + "\n" + 
-						   "usuarios destinatarios " + resul.get("usuarios_destinatarios") + "\n" +
-						   "cuerpo: " + resul.get("cuerpo") + "\n" +
-						   "fecha de publicacion: " + resul.get("fecha_de_publicacion") + "\n" +
-						   "type: " + resul.get("type") + "\n" +
-						   "estado: " + resul.get("estado") + "\n" +
-						   "temas: " + resul.get("temas"));
 		    }
 		    // Se debe tener precaución con cerrar las conexiones, uso de auto-commit, etc.
 		    if (stmt != null) 
@@ -288,7 +271,7 @@ public class AnuncioDAO {
 		} catch (Exception e) {
 			System.out.println(e);
 		} 
-		return resul;
+		return anuncios;
 	} 
 
 	public static Hashtable<String,String> buscarUsuarioDestinatario (String usuarios_destinatarios, InputStream config, InputStream sql) {

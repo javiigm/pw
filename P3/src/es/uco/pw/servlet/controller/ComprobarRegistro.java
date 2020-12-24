@@ -65,13 +65,14 @@ public class ComprobarRegistro extends HttpServlet {
 			User user = new User(nombre,apellidos,fecha_de_nacimiento,email,password,interes,edad);
 			int status = userDAO.registro(user, conf, sql);
 			if (status == 0) {
-				session.setAttribute("usuario",user);
+				customerBean = new CustomerBean(user.getEmail(),user.getPassword(),user.getNombre(),user.getApellidos(),user.getFecha_de_nacimiento(),user.getInteres(),user.getEdad());
+				session.setAttribute("customerBean",customerBean);
 				RequestDispatcher disp = request.getRequestDispatcher("home.jsp");
 				disp.forward(request, response);
 			}
 			else {
 				out.print("Error al introducir los datos del usuario");  
-		        RequestDispatcher rd=request.getRequestDispatcher("registerView.jsp");  
+		        RequestDispatcher rd=request.getRequestDispatcher("/mvc/view/registerView.jsp");  
 		        rd.include(request,response);
 			}
 		} else { 

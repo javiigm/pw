@@ -1,0 +1,63 @@
+.header{
+	background-color: #007b7b;
+	color: white;
+	/*grid-column: 1 / 5;
+	grid-row: 1;*/
+	grid-area: header;
+}
+
+.nav{
+	background-color: #007b7b;
+	color: white;
+	overflow: hidden;
+	grid-area: nav;
+}
+
+.nav a{
+	float:left;
+	display: block;
+	background-color: #007b7b;
+	color: black;
+	text-align: center;
+	padding: 14px 20px;
+	text-decoration: none;
+	font-size: 17px;
+}
+
+.nav a:hover{
+	background: #ddd;
+	color: black;
+}
+
+.nav a.active{
+	background-color: #09cdcd;
+	color: black;
+}
+
+input[type="search"]{
+	width: 230px;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	font-size: 17px;
+	background-color: white;
+	background-image: url("../img/busqueda.png");
+	background-position: 0px 8px;
+	background-repeat: no-repeat;
+	padding: 12px 20px 12px 60px;
+	-webkit-transition: width 0.4s ease-in-out;
+	-moz-transition: width 0.4s ease-in-out;
+	transition: width 0.4s ease-in-out;
+}
+
+input[type="search"]:focus{
+	width: 200%;
+}
+
+#cerrar_sesion{
+	float: right;
+	background-image: url('../img/icon.png');
+	background-position: 4px 5px;
+	background-repeat: no-repeat;
+	padding: 8px 18px 8px 40px;
+}

@@ -1,0 +1,57 @@
+body{
+	margin: 10px;
+	font-family: sans-serif;
+	width: max-width;
+	text-align: center;
+	background-color: #007b7b;
+}
+
+.trabajos{
+	grid-area: trabajos;
+}
+
+.header2{
+	grid-area: header2;
+}
+.container6{
+	display: grid;
+	grid-gap: 10px;
+	grid-template-columns: 1fr;
+	grid-template-areas: "header"
+						 "header2"
+						 "trabajos"
+						 "footer";
+}
+
+.trabajos table{
+	 border-spacing: 0px 30px;
+	 width: 100%;
+}
+
+#izq{
+	border-left: 2px solid black;
+}
+
+#der{
+	border-right: 2px solid black;
+}
+
+.trabajos th{
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+	background-color: #13c184;
+	padding: 8px;
+
+}
+
+.trabajos img{
+	float:right;
+}
+
+#filtros{
+	display: none;
+}
+
+#error{
+	color: red;
+}

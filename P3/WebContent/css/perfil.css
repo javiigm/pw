@@ -1,0 +1,77 @@
+body{
+	margin: 10px;
+	font-family: sans-serif;
+	width: max-width;
+	text-align: center;
+	background-color: #007b7b;
+}
+
+.info-perfil{
+	background: #0eb4af;
+	grid-area: info-perfil;
+}
+
+.info-perfil table #bEditar{
+  padding-left: 50px;
+}
+
+.container3{
+	display: grid;
+	grid-gap: 10px;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-areas: "header header header header"
+						 "header header header header"
+						 "info-perfil info-perfil info-perfil sugerencias"
+						 "mis_anuncios mis_anuncios mis_anuncios sugerencias"
+						 "investigacion	investigacion investigacion sugerencias"
+						 "footer footer footer footer";
+}
+
+.investigacion{
+	background: #0eb4af;
+	color: black;
+	grid-area: investigacion;
+}
+
+.mis_anuncios{
+	background: #0eb4af ;
+	color: black;
+	padding: 1.5em 0;
+	grid-area: mis_anuncios;
+}
+
+.block{
+  display: block;
+  border: none;
+  padding: 14px 25px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.sugerencias{
+	background: #0eb4af;
+	color: black;
+	padding: 1.5em 0;
+	grid-area: sugerencias;
+}
+
+.but1{
+    padding: 7px;
+    font-weight: 300;
+    font-size: 16px;
+    color: black;
+    border-radius: 6px;
+    border: 2px solid #007b7b;
+}
+
+.but2{
+	text-decoration: none;
+    padding: 7px;
+    font-weight: 300;
+    font-size: 15px;
+    color: black;
+    background-color: #007b7b;
+    border-radius: 6px;
+    border: 2px solid #007b7b;
+}

@@ -1,0 +1,23 @@
+body{
+	margin: 10px;
+	font-family: sans-serif;
+	width: max-width;
+	background-color: #007b7b;
+}
+
+.register table{
+	padding: 20px;
+}
+
+#formulario{
+	text-align: left;
+	float: left;
+	padding: 20px
+
+}
+
+#imagen{
+	float: right;
+	margin-top: 100px;
+	margin-left: 50px;
+}

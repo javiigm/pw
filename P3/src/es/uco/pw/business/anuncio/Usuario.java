@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Hashtable;
+import java.util.LinkedList;
 
 import es.uco.pw.data.dao.AnuncioDAO;
 import es.uco.pw.gestor.Contacto;
@@ -102,9 +103,21 @@ public class Usuario extends Contacto {
 		 * @throws IOException
 		 */
 		public void BuscarPropietario(String propietario,InputStream config, InputStream sql) throws IOException  {
-			Hashtable<String,String> resul = AnuncioDAO.buscarUsuarioPropietario(propietario,config,sql);
-			if (resul==null)
+			LinkedList<Anuncio> anuncios = AnuncioDAO.buscarUsuarioPropietario(propietario,config,sql);
+			if (anuncios==null)
 				System.out.println("No se ha encontrado ningun anuncio por ese propietario");
+			else
+				for(int i=0; i<anuncios.size();i++) {
+					System.out.println("identificador: " + anuncios.get(i).getIdentificador() + "\n" + 
+							   "titulo: " + anuncios.get(i).getTitulo() + "\n" + 
+							   "usuario propietario: " + propietario + "\n" + 
+							   "usuarios destinatarios " + anuncios.get(i).getUsuarios_destinatarios() + "\n" +
+							   "cuerpo: " + anuncios.get(i).getCuerpo() + "\n" +
+							   "fecha de publicacion: " + anuncios.get(i).getFecha_de_publicacion() + "\n" +
+							   "tipo: " + anuncios.get(i).getType() + "\n" +
+							   "estado: " + anuncios.get(i).getEstado() + "\n" +
+							   "tema: " + anuncios.get(i).getTema());
+				}
 		}
 		/**
 		 * buscar destinatario

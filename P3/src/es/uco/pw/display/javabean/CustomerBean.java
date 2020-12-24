@@ -21,6 +21,26 @@ public class CustomerBean implements java.io.Serializable {
 	
 	private int edad = 0;
 
+	/**
+	 * Constructor de CustomerBean
+	 * @param emailUser
+	 * @param password
+	 * @param nombre
+	 * @param apellidos
+	 * @param fecha_de_nacimiento
+	 * @param interes
+	 * @param edad
+	 */
+	public CustomerBean(String emailUser, String password, String nombre, String apellidos, String fecha_de_nacimiento, String interes, int edad) {
+		super();
+		this.emailUser = emailUser;
+		this.password = password;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.fecha_de_nacimiento = fecha_de_nacimiento;
+		this.interes = interes;
+		this.edad = edad;
+	}
 	
 	/**
 	 * Getter de la variable emailUser

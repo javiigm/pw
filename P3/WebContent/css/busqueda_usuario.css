@@ -1,0 +1,65 @@
+
+body{
+	margin: 10px;
+	font-family: sans-serif;
+	width: max-width;
+	text-align: center;
+	background-color: #007b7b;
+}
+
+.container5{
+	display: grid;
+	grid-gap: 10px;
+	grid-template-columns: 1fr;
+	grid-template-areas: "header"
+						 "trabajos"
+						 "footer";
+}
+
+.trabajos{
+	grid-area: trabajos;
+}
+
+.trabajos table{
+	 border-spacing: 0px 30px;
+	 width: 100%;
+}
+
+#izq{
+	border-left: 2px solid black;
+}
+
+#der{
+	border-right: 2px solid black;
+}
+
+.trabajos th{
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+	background-color: #13c184;
+	padding: 8px;
+
+}
+
+.trabajos img{
+	float:right;
+}
+
+.info-perfil table #botones{
+  padding-left: 50px;
+}
+
+.block{
+	text-decoration: none;
+    padding: 10px;
+    font-weight: 300;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #007b7b;
+    border-radius: 6px;
+    border: 2px solid #007b7b;
+}
+
+#Boton_seguir{
+	margin-top: 15px;
+}

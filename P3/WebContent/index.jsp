@@ -1,8 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<jsp:useBean id="customerBean" scope="session"
-	class="es.uco.pw.display.javabean.CustomerBean"></jsp:useBean>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="es.uco.pw.display.javabean.CustomerBean" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +9,8 @@
 </head>
 <body>
 <%
+session = request.getSession();
+CustomerBean customerBean = (CustomerBean) session.getAttribute("customerBean");
 if (customerBean == null || customerBean.getEmailUser().equals("") || customerBean.getPassword().equals("")) {
 	// Usuario no logado -> Se invoca al controlador de la funcionalidad
 %>
@@ -18,7 +18,7 @@ if (customerBean == null || customerBean.getEmailUser().equals("") || customerBe
 	<br />
 	<a href="/P3/mvc/view/registerView.jsp">Registrarse</a>
 	<% } else { 
-		response.sendRedirect("/home.jsp");
+		response.sendRedirect("./home.jsp");
 	 } %>
 
 </body>

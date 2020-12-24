@@ -1,0 +1,19 @@
+body{
+	background-color: #007b7b;
+}
+
+#boton{
+	float: right;
+}
+
+img{
+	margin-left=400;
+}
+
+p{
+	color: red;
+}
+
+a{
+	color: white;
+}
