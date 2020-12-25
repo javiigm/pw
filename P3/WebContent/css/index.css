@@ -1,57 +1,58 @@
-body{
-	margin: 10px;
-	font-family: sans-serif;
-	width: max-width;
-	text-align: center;
-	background-color: #007b7b;
+.topnav {
+  overflow: hidden;
+  background-color: #333;
 }
 
-.container{
-	display: grid;
-	grid-gap: 10px;
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-areas: "header header header header"
-						 "header header header header"
-						 "informacion muro muro noticias"
-						 "informacion muro muro noticias"
-						 "informacion muro muro sugerencias"
-						 "informacion muro muro sugerencias"
-						 "footer footer footer footer";
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
 }
 
-
-
-
-.informacion{
-	background: #0eb4af;
-	color: black;
-	grid-area: informacion;
-	text-align: center;
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
 }
 
-.info{
-	text-align: left;
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
 }
 
-.noticias{
-	background: #0eb4af;
-	color: black;
-	grid-area: noticias;
+* {
+  box-sizing: border-box;
 }
 
-.sugerencias{
-	background: #0eb4af;
-	color: black;
-	grid-area: sugerencias;
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
 }
 
-.muro{
-	background: #0eb4af;
-	color: black;
-	grid-area: muro;
-	gap: 20px;
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
 }
 
-#muro{
-	padding-left: 20px;
+form.example button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
 }
