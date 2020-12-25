@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Login</title>	
+	<link rel="stylesheet" href="../../css/loginView.css">
 	<script>
 	function valida(){
 		var correo = document.getElementById("email").value;
@@ -27,15 +28,27 @@
 </head>
 <body>	
 	<form method="post" action="/P3/ComprobarLogin" onsubmit="valida()">
-		<label for="email">Email: </label> 
-		<input type="text" id="email" name="email" required><br />
+	
+	  <div class="container">
+		<label for="email"><b>Email </b></label>
+		<input type="text" placeholder="Enter Email" id="email" name="email" required><br />
 		<br /> 
-		<label for="password">Password: </label> 
-		<input type="password" id="password" name="password" required><br /> 
+		
+		<label for="password"><b>Password</b></label>
+		<input type="password" placeholder="Enter Password" id="password" name="password" required><br /> 
 		<br /> 
+		
 		<input type="submit" value="Entrar">
+		
+		<label>
+			<input type="checkbox" checked="checked" name="remember"> Remember me
+    	</label>
+		
 		<br /><br />
 		<input type="button" value="Volver a la pagina inicial" onclick="volver()" />
+		
+	   </div>
+
 	</form>
 
 </body>
