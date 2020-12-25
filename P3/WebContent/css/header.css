@@ -56,8 +56,13 @@ input[type="search"]:focus{
 
 #cerrar_sesion{
 	float: right;
-	background-image: url('../img/icon.png');
+	background-color: #ddd;
 	background-position: 4px 5px;
 	background-repeat: no-repeat;
+	color: black;
 	padding: 8px 18px 8px 40px;
+}
+#cerrar_sesion:hover{
+	background: #09cdcd;
+	color: black;
 }

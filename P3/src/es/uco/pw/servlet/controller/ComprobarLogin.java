@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import es.uco.pw.display.javabean.CustomerBean;
+import es.uco.pw.display.javabean.LoginBean;
 import es.uco.pw.business.user.User;
 import es.uco.pw.data.dao.UserDAO;
 
@@ -32,9 +33,12 @@ public class ComprobarLogin extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("null")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
+		LoginBean intentos = (LoginBean)session.getAttribute("intentos");
 		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
@@ -44,7 +48,7 @@ public class ComprobarLogin extends HttpServlet {
 		String fichero2 = getServletContext().getInitParameter("sql.properties");
 		java.io.InputStream sql = getServletContext().getResourceAsStream(fichero2);
 		
-		HttpSession session = request.getSession();
+		
 		CustomerBean customerBean = (CustomerBean) session.getAttribute("customerBean");
 		if (customerBean == null || customerBean.getEmailUser().equals("") || customerBean.getPassword().equals("")) {
 			UserDAO userDAO = new UserDAO();
@@ -53,16 +57,30 @@ public class ComprobarLogin extends HttpServlet {
 			if (user != null && user.getEmail().equals(email) && user.getPassword().equals(password) && !user.getInteres().equals("")) {
 				customerBean = new CustomerBean(user.getEmail(),user.getPassword(),user.getNombre(),user.getApellidos(),user.getFecha_de_nacimiento(),user.getInteres(),user.getEdad());
 				session.setAttribute("customerBean",customerBean);
-				RequestDispatcher disp = request.getRequestDispatcher("home.jsp");
-				disp.forward(request, response);
+				/*RequestDispatcher disp = request.getRequestDispatcher("home.jsp");
+				disp.forward(request, response);*/
+				response.sendRedirect("mvc/view/home.jsp");
 			} else {
-				out.print("Error al validar el usuario y la contrasena");  
-		        RequestDispatcher rd=request.getRequestDispatcher("/mvc/view/loginView.jsp");  
+				if (intentos != null && intentos.getContador() < 3) {
+				out.printf("Error al validar el usuario y la contrasena. Le quedan %d intentos", 3 - intentos.getContador());
+				intentos.setContador(intentos.getContador() + 1);
+				session.setAttribute("intentos", intentos);
+		        RequestDispatcher rd=request.getRequestDispatcher("./mvc/view/loginView.jsp");  
 		        rd.include(request,response);	
+				} else if (intentos == null) {
+					intentos = new LoginBean();
+					intentos.setContador(1);
+					session.setAttribute("intentos", intentos);	
+					out.printf("Error al validar el usuario y la contrasena. Le quedan %d intentos", 3 - intentos.getContador());
+					RequestDispatcher rd=request.getRequestDispatcher("./mvc/view/loginView.jsp");  
+			        rd.include(request,response);	
+				} else {
+					response.sendRedirect("https://www.uco.es");
+				}
+				
 			}
 		} else {
-	        RequestDispatcher rd=request.getRequestDispatcher("home.jsp");  
-	        rd.include(request,response);
+			response.sendRedirect("mvc/view/home.jsp");
 		}
 	}
 

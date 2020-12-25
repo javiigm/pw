@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:useBean id="customerBean" scope="session"
-	class="es.uco.pw.display.javabean.CustomerBean"></jsp:useBean>
 <%@ page import="es.uco.pw.data.dao.InteresDAO" %>
 
 <!DOCTYPE html>
@@ -18,8 +16,6 @@
 					alert("Debe rellenar todos los campos");
 		else if ( !((correo.value.indexOf("@") > 0)) || /[^a-zA-Z0-9\.\@\_\-]/.test(correo))
 			alert("Formato de email incorrecto");
-		else if (${comprobarUsuario(correo,conf,sql)} == 1)
-			alert("El email ya se encuentra registrado. Introduce otro email o inicia sesion");
 		else
 			window.location.assign("/P3/ComprobarRegistro");
 	}
@@ -32,7 +28,7 @@
 	</script>
 </head>
 <body>
-	<form method="post" action="/P3/ComprobarRegistro" onsubmit="validar()">
+	<form method="post" action="/P3/ComprobarRegistro" onsubmit="valida()">
 		<label for="nombre">Nombre: </label> 
 		<input type="text" id="nombre" name="nombre" required><br />
 		<br /> <label for="apellidos">Apellidos: </label> 
@@ -52,6 +48,7 @@
 		InteresDAO idao = new InteresDAO();
 		String intereses = idao.consultaInteres(conf, sql);
 		%>
+		<br />
 		<label id="intereses">La lista de intereses posibles son: <%=intereses.substring(0, intereses.length()-2)%></label>
 		<br /> <label for="interes">Interes: </label> 
 		<input type="text" id="interes" name="interes" required><br />
@@ -63,8 +60,6 @@
 		<br /><br />
 		<input type="button" value="Volver a la pagina inicial" onclick="volver()" />
 	</form>
-	
-}
 
 </body>
 </html>

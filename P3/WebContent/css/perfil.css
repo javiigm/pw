@@ -40,6 +40,13 @@ body{
 	grid-area: mis_anuncios;
 }
 
+.anuncio{
+	background: #037dc7 ;
+	color: black;
+	padding: 1.5em 0;
+	grid-area: mis_anuncios;
+}
+
 .block{
   display: block;
   border: none;

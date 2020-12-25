@@ -41,7 +41,6 @@ public class ComprobarRegistro extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
@@ -64,20 +63,18 @@ public class ComprobarRegistro extends HttpServlet {
 			UserDAO userDAO = new UserDAO();
 			User user = new User(nombre,apellidos,fecha_de_nacimiento,email,password,interes,edad);
 			int status = userDAO.registro(user, conf, sql);
-			if (status == 0) {
+			if (status != 0) {
 				customerBean = new CustomerBean(user.getEmail(),user.getPassword(),user.getNombre(),user.getApellidos(),user.getFecha_de_nacimiento(),user.getInteres(),user.getEdad());
 				session.setAttribute("customerBean",customerBean);
-				RequestDispatcher disp = request.getRequestDispatcher("home.jsp");
-				disp.forward(request, response);
+				response.sendRedirect("./mvc/view/home.jsp");
 			}
 			else {
-				out.print("Error al introducir los datos del usuario");  
-		        RequestDispatcher rd=request.getRequestDispatcher("/mvc/view/registerView.jsp");  
+				out.print("Error al introducir los datos del usuario. Puede haber introducido un correo ya existente.");  
+		        RequestDispatcher rd=request.getRequestDispatcher("./mvc/view/registerView.jsp");  
 		        rd.include(request,response);
 			}
 		} else { 
-	        RequestDispatcher rd=request.getRequestDispatcher("home.jsp");  
-	        rd.include(request,response);
+	        response.sendRedirect("./mvc/view/home.jsp");
 		}
 	}
 

@@ -132,8 +132,7 @@ public class EditarPerfil extends HttpServlet {
 			}
 			session.setAttribute("customerBean", customerBean);
 			
-	        RequestDispatcher rd=request.getRequestDispatcher("./mvc/view/perfilView.jsp");  
-	        rd.forward(request,response);
+	        response.sendRedirect("./mvc/view/perfilView.jsp");  
 		}
 	}
 

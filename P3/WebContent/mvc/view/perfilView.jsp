@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <%@ page import ="java.util.LinkedList" %>
 <%@ page import ="es.uco.pw.data.dao.AnuncioDAO" %>
 <%@ page import ="es.uco.pw.display.javabean.CustomerBean" %>
@@ -10,56 +10,38 @@
 <head>
 <meta charset="UTF-8">
 <title>Mi perfil</title>
-<link rel="stylesheet" href="css/perfil.css">
-<link rel="stylesheet" href="css/header.css">
-<link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="../../css/perfil.css">
+<link rel="stylesheet" href="../../css/header.css">
+<link rel="stylesheet" href="../../css/footer.css">
 </head>
 <body>
 	<div class="container3">
-      <div class="header">
-        <img src="img/log4.png" alt="logo" style="height:120px;width:150px;float:left">
-        <div class="nav">
-          <a href="../../home.jsp">HOME</a>
-          <a class="active" href="perfilView.jsp">PERFIL</a>
-          <div style="float:right">
-        	<%
-	        session = request.getSession();
-	        CustomerBean cb = (CustomerBean)session.getAttribute("customerBean");
-	        out.println(cb.getNombre() + " " + cb.getApellidos());
-	        %>
-	        <form method="GET" action="../../Logout">
-	        	<button type="submit" id="cerrar_sesion">CERRAR SESIÓN</button>
-	        </form>
-        </div>
-        </div>
-        <form method="GET" action="" style="float:left;">
-          <input type="search" id="busq" placeholder="Search.." name="search">
-        </form>
-      </div>
-
-      <div class="info-perfil">
+      <%@ include file="../../includes/header.jsp" %>
+      <div class="info-perfil" align=center>
         <h1>MI PERFIL</h1>
-        <table align=center>
+        <table>
           <tr align=left>
            <th><img src="https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14046.jpg" alt="persona1" width="200" height="200"> </th>
            <th align="left">
+           <%
+	        session = request.getSession();
+	        CustomerBean customer = (CustomerBean)session.getAttribute("customerBean");
+	        %>
              <ul>
-              <li>NOMBRE: <%=cb.getNombre() %></li>
-              <li>APELLIDOS: <%=cb.getApellidos() %></li>
-              <li>FECHA DE NACIMIENTO: <%=cb.getFecha_de_nacimiento() %></li>
-              <li>CORREO: <%=cb.getEmailUser() %></li>
-              <li>INTERES: <%=cb.getInteres() %></li>
-              <li>EDAD: <%=cb.getEdad() %></li>
+              <li>NOMBRE: <%=customer.getNombre() %></li>
+              <li>APELLIDOS: <%=customer.getApellidos() %></li>
+              <li>FECHA DE NACIMIENTO: <%=customer.getFecha_de_nacimiento() %></li>
+              <li>CORREO: <%=customer.getEmailUser() %></li>
+              <li>INTERES: <%=customer.getInteres() %></li>
+              <li>EDAD: <%=customer.getEdad() %></li>
              </ul>
-            <th id="botones">
-            	<button onclick="window.location.assign('./editarPerfilView.jsp');">EDITAR PERFIL</button>
-           </th>
+             <button id="botones" onclick="window.location.assign('./editarPerfilView.jsp');">EDITAR PERFIL</button>
           </tr>
         </table>
       </div>
       
-
-      <div class="mis_anuncios"><h2>Anuncios</h2>
+      <div class="mis_anuncios">
+      	<h2>Anuncios</h2>
         <%
 	    String fichero = getServletContext().getInitParameter("config.properties");
 		java.io.InputStream conf = getServletContext().getResourceAsStream(fichero);
@@ -69,7 +51,7 @@
 	    LinkedList<Anuncio> anuncios = AnuncioDAO.buscarUsuarioPropietario(cb.getEmailUser(),conf,sql);
 	   	for(int i=0; i<anuncios.size(); i++){
 	   	%>
-        <table align=left>
+        <table class="anuncio">
 		    <tr align=left>
            <th><img align="right" src="https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg" alt="persona2" width="100" height="100"></th>
 	           <th align="left">
@@ -88,7 +70,7 @@
 		<% } %>
         </table>
       </div>
-
-     </div>
+	</div>
+     
 </body>
 </html>
