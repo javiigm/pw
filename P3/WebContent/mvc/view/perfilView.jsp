@@ -79,11 +79,12 @@
 	             </ul>
 	             <%if (anuncios.get(i).getEstado().equals(Estado.editado)){ 
 	         		
-	            	 SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-mm-dd"); 
+	            	 SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd"); 
 	                 Date fecha_anuncio = objSDF.parse(anuncios.get(i).getFecha_de_publicacion()); 
 	                 Date actual = new Date();
+	                 String strDate = objSDF.format(actual);
 	                 %><form method="post" action="/P3/ActualizarEstado">
-	                 <%if (fecha_anuncio.compareTo(actual) > 0) {  
+	                 <%if (fecha_anuncio.compareTo(objSDF.parse(strDate)) > 0) {  
 	                	 %><button name="en_espera_anuncio" value="<%=anuncios.get(i).getIdentificador()%>">Publicar Anuncio</button><%
 	                 }
 	                 else {  
@@ -92,17 +93,17 @@
 	                 %>
 	                 </form>
 	             	<button name="editar_anuncio" onclick="window.location.assign('./editarAnuncioView.jsp');">Editar Anuncio</button>
-	             <%} else if (anuncios.get(i).getEstado().equals(Estado.editado)) {
+	             <%} else if (anuncios.get(i).getEstado().equals(Estado.en_espera)) {
 	            	 String fichero3 = getServletContext().getInitParameter("config.properties");
 	         		 java.io.InputStream conf2 = getServletContext().getResourceAsStream(fichero3);
 	         		 String fichero4 = getServletContext().getInitParameter("sql.properties");
 	         		 java.io.InputStream sql2 = getServletContext().getResourceAsStream(fichero4);
 	         		 
-	         		 SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-mm-dd"); 
+	         		 SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd"); 
 	                 Date fecha_anuncio = objSDF.parse(anuncios.get(i).getFecha_de_publicacion()); 
 	                 Date actual = new Date();
 	                 String strDate = objSDF.format(actual);
-	                 if (fecha_anuncio.compareTo(objSDF.parse(strDate)) <= 0)
+	                 if (fecha_anuncio.compareTo(objSDF.parse(strDate)) > 0)
 	                	 AnuncioDAO.update(anuncios.get(i).getIdentificador(), "publicado", conf2, sql2);
 	             
 	               } else if (anuncios.get(i).getEstado().equals(Estado.publicado)) {%>

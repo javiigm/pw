@@ -18,8 +18,15 @@
 	<script>
 	function valida(){
 		var interes = "<%=intereses.substring(0, intereses.length()-2) %>";
-		if (!interes.includes(document.getElementById("interes").value)) {
+		var fecha = document.getElementById("fecha_de_nacimiento").value;
+		valor = new Date(fecha.substr(0,3),fecha.substr(5,6),fecha.substr(8,9));
+		if (!isNaN(valor))
+			alert("La fecha es incorrecta");
+		else if (!interes.includes(document.getElementById("interes").value)) {
 			alert("El interes no coincide");
+		}
+		else{
+			window.location.assign("/P3/EditarPerfil");
 		}
 	}
 	function volver(){

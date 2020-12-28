@@ -10,12 +10,16 @@
 	<script>
 	function valida(){
 		var correo = document.getElementById("email").value;
+		var fecha = document.getElementById("fecha_de_nacimiento").value;
+		valor = new Date(fecha.substr(0,3),fecha.substr(5,6),fecha.substr(8,9));
 		if ( (document.getElementById("nombre").value == "") || (document.getElementById("apellidos").value == "")
 				(correo == "") || (document.getElementById("password").value == "") || 
 				(document.getElementById("interes").value == "") || (document.getElementById("edad").value.text() == "") )
 					alert("Debe rellenar todos los campos");
 		else if ( !((correo.value.indexOf("@") > 0)) || /[^a-zA-Z0-9\.\@\_\-]/.test(correo))
 			alert("Formato de email incorrecto");
+		else if (!isNaN(valor))
+			alert("La fecha es incorrecta");
 		else
 			window.location.assign("/P3/ComprobarRegistro");
 	}

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.LinkedList" %>
+<%@ page import ="java.text.SimpleDateFormat" %>
+<%@ page import ="java.text.ParseException" %>
+<%@ page import ="java.util.Date" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="es.uco.pw.data.dao.UserDAO" %>
 <%@ page import="es.uco.pw.data.dao.AnuncioDAO" %>
@@ -16,7 +19,7 @@
  <link rel="stylesheet" href="../../css/index.css">
  <link rel="stylesheet" href="../../css/header.css">
  <link rel="stylesheet" href="../../css/footer.css">
-<title>Home</title>
+ <title>Home</title>
 </head>
 <body>
 
@@ -37,6 +40,36 @@
 		   		
 	            LinkedList<Anuncio> anuncios = AnuncioDAO.mostrarTodosAnuncios (conf,sql) ;
 	   			for(int i=0; i<anuncios.size(); i++){
+	   				
+	   				if (anuncios.get(i).getEstado().equals(Estado.en_espera)) {
+		            	 String fichero3 = getServletContext().getInitParameter("config.properties");
+		         		 java.io.InputStream conf2 = getServletContext().getResourceAsStream(fichero3);
+		         		 String fichero4 = getServletContext().getInitParameter("sql.properties");
+		         		 java.io.InputStream sql2 = getServletContext().getResourceAsStream(fichero4);
+		         		 
+		         		 SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd"); 
+		                 Date fecha_anuncio = objSDF.parse(anuncios.get(i).getFecha_de_publicacion()); 
+		                 Date actual = new Date();
+		                 String strDate = objSDF.format(actual);
+		                 if (fecha_anuncio.compareTo(objSDF.parse(strDate)) > 0)
+		                	 AnuncioDAO.update(anuncios.get(i).getIdentificador(), "publicado", conf2, sql2); 
+		               }
+	   				
+	   				if (anuncios.get(i).getType().equals(Type.flash)) {
+		            	 String fichero3 = getServletContext().getInitParameter("config.properties");
+		         		 java.io.InputStream conf2 = getServletContext().getResourceAsStream(fichero3);
+		         		 String fichero4 = getServletContext().getInitParameter("sql.properties");
+		         		 java.io.InputStream sql2 = getServletContext().getResourceAsStream(fichero4);
+		         		 
+		         		 SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd"); 
+		                 Date fecha_fin_anuncio = objSDF.parse(anuncios.get(i).getFecha_fin()); 
+		                 Date actual = new Date();
+		                 String strDate = objSDF.format(actual);
+		                 if (fecha_fin_anuncio.compareTo(objSDF.parse(strDate)) <= 0)
+		                	 AnuncioDAO.update(anuncios.get(i).getIdentificador(), "archivado", conf2, sql2); 
+		               }
+	   				
+	   				
 	   				if(anuncios.get(i).getEstado().equals(Estado.publicado) && 
 	   						((anuncios.get(i).getType().equals(Type.individualizado) && anuncios.get(i).getUsuarios_destinatarios().equals(cb.getEmailUser())) ||
 	   						anuncios.get(i).getType().equals(Type.general) || anuncios.get(i).getType().equals(Type.flash) || 

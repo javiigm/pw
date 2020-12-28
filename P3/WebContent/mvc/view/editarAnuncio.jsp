@@ -7,6 +7,14 @@
 	<meta charset="UTF-8">
 	<title>Editar Anuncio</title>
 	<script>
+	function valida(){
+		var fecha = document.getElementById("fecha_de_publicacion").value;
+		valor = new Date(fecha.substr(0,3),fecha.substr(5,6),fecha.substr(8,9));
+		if (!isNaN(valor))
+			alert("La fecha es incorrecta");
+		else
+			window.location.assign("/P3/EditarAnuncio");
+	}
 	function volver(){
 		if (window.location.pathname == "/P3/EditarAnuncio")
 			window.location.assign("./mvc/view/perfilView.jsp");
