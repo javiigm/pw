@@ -19,6 +19,7 @@ public class Anuncio {
 	private String usuarios_destinatarios;
 	private String cuerpo;
 	private String fecha_de_publicacion;
+	private String fecha_fin;
 	private Type type;
 	private Estado estado;
 	private String tema;
@@ -36,17 +37,19 @@ public class Anuncio {
 	 * @param usuarios_destinatarios
 	 * @param cuerpo
 	 * @param fecha_de_publicacion
+	 * @param fecha_fin
 	 * @param type
 	 * @param estado
 	 * @param tema
 	 */
-	public Anuncio(int identificador, String titulo, String usuario_propietario, String usuarios_destinatarios, String cuerpo, String fecha_de_publicacion, String type, String estado, String tema) {
+	public Anuncio(int identificador, String titulo, String usuario_propietario, String usuarios_destinatarios, String cuerpo, String fecha_de_publicacion, String fecha_fin, String type, String estado, String tema) {
 		this.identificador = identificador;
 		this.titulo = titulo;
 		this.usuario_propietario = usuario_propietario;
 		this.usuarios_destinatarios = usuarios_destinatarios;
 		this.cuerpo = cuerpo;
 		this.fecha_de_publicacion = fecha_de_publicacion;
+		this.fecha_fin = fecha_fin;
 		this.type = Type.valueOf(type);
 		this.estado = Estado.valueOf(estado);
 		this.tema = tema;
@@ -134,6 +137,20 @@ public class Anuncio {
 	 */
 	public void setFecha_de_publicacion(String fecha_de_publicacion) {
 		this.fecha_de_publicacion = fecha_de_publicacion;
+	}
+	/**
+	 * getter fecha fin
+	 * @return fecha_fin
+	 */
+	public String getFecha_fin() {
+		return fecha_fin;
+	}
+	/**
+	 * setter fecha fin
+	 * @param fecha_fin
+	 */
+	public void setFecha_fin(String fecha_fin) {
+		this.fecha_fin = fecha_fin;
 	}
 	/**
 	 * getter type

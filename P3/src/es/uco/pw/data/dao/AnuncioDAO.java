@@ -49,9 +49,10 @@ public class AnuncioDAO {
 			ps.setString(4,a.getUsuarios_destinatarios());
 			ps.setString(5,a.getCuerpo());
 			ps.setString(6,a.getFecha_de_publicacion());
-			ps.setString(7,a.getType().toString());
-			ps.setString(8,a.getEstado().toString());
-			ps.setString(9,a.getTema());
+			ps.setString(7, a.getFecha_fin());
+			ps.setString(8,a.getType().toString());
+			ps.setString(9,a.getEstado().toString());
+			ps.setString(10,a.getTema());
 			status = ps.executeUpdate();
 		// Importante capturar las excepciones. Si nuestra aplicaciones tiene más opciones de fallo,
 		// podemos capturar directamente SQLException
@@ -61,7 +62,24 @@ public class AnuncioDAO {
 	}
 	
 	//Método para actualizar un anuncio
-	public static int update(int identificador, String estado, int opcion, InputStream config, InputStream sql){
+	public static int update(int identificador, String estado, InputStream config, InputStream sql){
+		int status=0;
+		try{
+			Connection con=getConnection(config);
+			PreparedStatement ps = null;
+			Properties p = new Properties();
+			p.load(sql);
+			
+			ps=con.prepareStatement(p.getProperty("actualizarestadoanuncio"));
+			ps.setString(1,estado);
+			ps.setInt(2,identificador);
+			
+			status=ps.executeUpdate();
+		}catch(Exception e){System.out.println(e);}
+		return status;
+	}
+	
+	public int editarAnuncio(int identificador, String cadena, int opcion, InputStream config, InputStream sql){
 		int status=0;
 		try{
 			Connection con=getConnection(config);
@@ -70,30 +88,26 @@ public class AnuncioDAO {
 			p.load(sql);
 			
 			if(opcion == 1) {
-				ps=con.prepareStatement(p.getProperty("guardaranuncio"));
-				ps.setString(1,estado);
+				ps=con.prepareStatement(p.getProperty("actualizatitulo"));
+				ps.setString(1,cadena);
 				ps.setInt(2,identificador);
 			}
 			else if(opcion == 2) {
-				ps=con.prepareStatement(p.getProperty("publicaranuncio"));
-				ps.setString(1,estado);
+				ps=con.prepareStatement(p.getProperty("actualizacuerpo"));
+				ps.setString(1,cadena);
 				ps.setInt(2,identificador);
 			}
 			else if(opcion == 3) {
-				ps=con.prepareStatement(p.getProperty("archivaranuncio"));
-				ps.setString(1,estado);
+				ps=con.prepareStatement(p.getProperty("actualizafechapublicacion"));
+				ps.setString(1,cadena);
 				ps.setInt(2,identificador);
 			}
-			else if(opcion == 4) {
-				ps=con.prepareStatement(p.getProperty("enesperaanuncio"));
-				ps.setString(1,estado);
-				ps.setInt(2,identificador);
-			}
-			else {
-				System.out.println("Error al introducir la opcion para actualizar");
-				System.exit(0);
-			}
+			
 			status=ps.executeUpdate();
+		    if (ps != null)
+		    	ps.close();
+		    if (con != null)
+		    	con.close();
 		}catch(Exception e){System.out.println(e);}
 		return status;
 	}
@@ -137,6 +151,52 @@ public class AnuncioDAO {
 		} 
 		return resul;
 	} 
+	
+	public static LinkedList<Anuncio> filtrarAnuncios (String cadena, InputStream config, InputStream sql) {
+		LinkedList<Anuncio> listaAnuncios= new LinkedList<Anuncio>();
+		
+		try {
+			Connection con=getConnection(config);
+			// En consultas, se hace uso de un Statement 
+			PreparedStatement ps = null;
+			Properties p = new Properties();
+			p.load(sql);
+		    ps = con.prepareStatement(p.getProperty("buscarPalabra"));
+		    ps.setString(1, '%' + cadena + '%');
+		    ps.setString(2, '%' + cadena + '%');
+		    ps.setString(3, cadena);
+		    ps.setString(4, cadena);
+		    ps.setString(5, cadena);
+		    ps.setString(6, cadena);
+		    ps.setString(7, cadena);
+		    ps.setString(8, '%' + cadena + '%');
+		    ps.setString(9, '%' + cadena + '%');
+		    ResultSet rs = ps.executeQuery();
+		    while (rs.next()) {
+		    	int identificador = rs.getInt("identificador");
+		    	String titulo = rs.getString("titulo");
+		        String fecha_publicacion = rs.getString("fecha_de_publicacion");
+		        String fecha_fin = rs.getString("fecha_fin");
+		        String cuerpo = rs.getString("cuerpo");
+		        String usuario_propietario = rs.getString("usuario_propietario");
+		        String usuarios_destinatarios = rs.getString("usuarios_destinatarios");
+		        String tipo = rs.getString("type");
+		        String estado = rs.getString("estado");
+		        String tema = rs.getString("temas");
+		        
+		        Anuncio anuncio = new Anuncio(identificador,titulo,usuario_propietario,usuarios_destinatarios,cuerpo,fecha_publicacion,fecha_fin,tipo,estado,tema);
+		        listaAnuncios.add(anuncio);
+		    }
+		    if (ps != null) 
+		    	ps.close(); 
+		    if (rs != null)
+		    	rs.close();
+		    con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		} 
+		return listaAnuncios;
+	}
 		
 	public static Hashtable<String,String> buscarFecha (String fecha_publicacion, InputStream config, InputStream sql) {
 		Statement stmt = null; 
@@ -155,6 +215,7 @@ public class AnuncioDAO {
 		        String usuarios_destinatarios = rs.getString("usuarios_destinatarios");
 		        String cuerpo = rs.getString("cuerpo");
 		        String fecha_de_publicacion = rs.getString("fecha_de_publicacion");
+		        String fecha_fin = rs.getString("fecha_fin");
 		        String type = rs.getString("type");
 		        String estado = rs.getString("estado");
 		        String temas = rs.getString("temas");
@@ -166,6 +227,7 @@ public class AnuncioDAO {
 		        resul.put("usuarios_destinatarios", usuarios_destinatarios);
 		        resul.put("cuerpo", cuerpo);
 		        resul.put("fecha_de_publicacion", fecha_de_publicacion);
+		        resul.put("fecha_fin", fecha_fin);
 		        resul.put("type", type);
 		        resul.put("estado", estado);
 		        resul.put("temas", temas);
@@ -206,6 +268,7 @@ public class AnuncioDAO {
 		        String usuarios_destinatarios = rs.getString("usuarios_destinatarios");
 		        String cuerpo = rs.getString("cuerpo");
 		        String fecha_de_publicacion = rs.getString("fecha_de_publicacion");
+		        String fecha_fin = rs.getString("fecha_fin");
 		        String type = rs.getString("type");
 		        String estado = rs.getString("estado");
 		        temas = rs.getString("temas");
@@ -217,6 +280,7 @@ public class AnuncioDAO {
 		        resul.put("usuarios_destinatarios", usuarios_destinatarios);
 		        resul.put("cuerpo", cuerpo);
 		        resul.put("fecha_de_publicacion", fecha_de_publicacion);
+		        resul.put("fecha_fin", fecha_fin);
 		        resul.put("type", type);
 		        resul.put("estado", estado);
 		        resul.put("temas", temas);
@@ -257,11 +321,12 @@ public class AnuncioDAO {
 		        String usuarios_destinatarios = rs.getString("usuarios_destinatarios");
 		        String cuerpo = rs.getString("cuerpo");
 		        String fecha_de_publicacion = rs.getString("fecha_de_publicacion");
+		        String fecha_fin = rs.getString("fecha_fin");
 		        String type = rs.getString("type");
 		        String estado = rs.getString("estado");
 		        String temas = rs.getString("temas");
 
-		        Anuncio anuncio = new Anuncio(identificador,titulo,usuario_propietario,usuarios_destinatarios,cuerpo,fecha_de_publicacion,type,estado,temas);
+		        Anuncio anuncio = new Anuncio(identificador,titulo,usuario_propietario,usuarios_destinatarios,cuerpo,fecha_de_publicacion,fecha_fin,type,estado,temas);
 		        anuncios.add(anuncio);
 
 		    }
@@ -291,6 +356,7 @@ public class AnuncioDAO {
 		    	usuarios_destinatarios = rs.getString("usuarios_destinatarios");
 		        String cuerpo = rs.getString("cuerpo");
 		        String fecha_de_publicacion = rs.getString("fecha_de_publicacion");
+		        String fecha_fin = rs.getString("fecha_fin");
 		        String type = rs.getString("type");
 		        String estado = rs.getString("estado");
 		        String temas = rs.getString("temas");
@@ -302,6 +368,7 @@ public class AnuncioDAO {
 		        resul.put("usuarios_destinatarios", usuarios_destinatarios);
 		        resul.put("cuerpo", cuerpo);
 		        resul.put("fecha_de_publicacion", fecha_de_publicacion);
+		        resul.put("fecha_fin", fecha_fin);
 		        resul.put("type", type);
 		        resul.put("estado", estado);
 		        resul.put("temas", temas);
@@ -342,6 +409,7 @@ public class AnuncioDAO {
 		        String usuarios_destinatarios = rs.getString("usuarios_destinatarios");
 		        String cuerpo = rs.getString("cuerpo");
 		        String fecha_de_publicacion = rs.getString("fecha_de_publicacion");
+		        String fecha_fin = rs.getString("fecha_fin");
 		        String type = rs.getString("type");
 		        estado = rs.getString("estado");
 		        String temas = rs.getString("temas");
@@ -353,6 +421,7 @@ public class AnuncioDAO {
 		        resul.put("usuarios_destinatarios", usuarios_destinatarios);
 		        resul.put("cuerpo", cuerpo);
 		        resul.put("fecha_de_publicacion", fecha_de_publicacion);
+		        resul.put("fecha_fin", fecha_fin);
 		        resul.put("type", type);
 		        resul.put("estado", estado);
 		        resul.put("temas", temas);
@@ -393,11 +462,12 @@ public class AnuncioDAO {
 		        String usuarios_destinatarios = rs.getString("usuarios_destinatarios");
 		        String cuerpo = rs.getString("cuerpo");
 		        String fecha_de_publicacion = rs.getString("fecha_de_publicacion");
+		        String fecha_fin = rs.getString("fecha_fin");
 		        String type = rs.getString("type");
 		        String estado = rs.getString("estado");
 		        String temas = rs.getString("temas");
 
-		        Anuncio anuncio = new Anuncio(identificador,titulo,usuario_propietario,usuarios_destinatarios,cuerpo,fecha_de_publicacion,type,estado,temas);
+		        Anuncio anuncio = new Anuncio(identificador,titulo,usuario_propietario,usuarios_destinatarios,cuerpo,fecha_de_publicacion,fecha_fin,type,estado,temas);
 		        anuncios.add(anuncio);
 
 		    }
@@ -420,6 +490,7 @@ public class AnuncioDAO {
 	    String usuarios_destinatarios="";
 	    String cuerpo="";
 	    String fecha_de_publicacion="";
+	    String fecha_fin = "";
 	    String type="";
 	    String estado="";
 	    String temas="";
@@ -438,6 +509,7 @@ public class AnuncioDAO {
 		        usuarios_destinatarios = rs.getString("usuarios_destinatarios");
 		        cuerpo = rs.getString("cuerpo");
 		        fecha_de_publicacion = rs.getString("fecha_de_publicacion");
+		        fecha_fin = rs.getString("fecha_fin");
 		        type = rs.getString("type");
 		        estado = rs.getString("estado");
 		        temas = rs.getString("temas");
@@ -448,7 +520,7 @@ public class AnuncioDAO {
 		    	stmt.close();
 		    if (con != null)
 		    	con.close();
-		    return new Anuncio(identificador,titulo,usuario_propietario,usuarios_destinatarios,cuerpo,fecha_de_publicacion,type,estado,temas);
+		    return new Anuncio(identificador,titulo,usuario_propietario,usuarios_destinatarios,cuerpo,fecha_de_publicacion,fecha_fin,type,estado,temas);
 		    
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -468,5 +540,26 @@ public class AnuncioDAO {
 		}catch(Exception e){System.out.println(e);}
 	
 		return status;
+	}
+	
+	public static int calcularIdentificador(InputStream config, InputStream sql) {
+		int id=0;
+		try{
+			Connection con=getConnection(config);
+			Properties p = new Properties();
+			p.load(sql);
+			Statement stmt = con.createStatement();
+		    ResultSet rs = stmt.executeQuery(p.getProperty("obtenerid"));
+		    while(rs.next())
+		    	id = rs.getInt("identificador");
+		    
+		    if (rs != null)
+		    	rs.close();
+		    if (stmt != null)
+		    	stmt.close();
+		    if (con != null)
+		    	con.close();
+		}catch(Exception e){System.out.println(e);}
+		    return id;
 	}
 }

@@ -40,7 +40,7 @@ public class Usuario extends Contacto {
 		public void GuardarAnuncio (Anuncio a, String usuario,InputStream config, InputStream sql) throws IOException {
 			if(a.getUsuario_propietario().equals(usuario)) {
 				a.setEstado(Estado.en_espera);
-				AnuncioDAO.update(a.getIdentificador(), a.getEstado().toString(), 1,config,sql);
+				AnuncioDAO.update(a.getIdentificador(), a.getEstado().toString(),config,sql);
 		        System.out.println("Anuncio guardado correctamente");
 			}
 			else {
@@ -54,7 +54,7 @@ public class Usuario extends Contacto {
 		public void PublicarAnuncio (Anuncio a, String usuario,InputStream config, InputStream sql) {
 			if(a.getUsuario_propietario().equals(usuario)) {
 				a.setEstado(Estado.publicado);
-				AnuncioDAO.update(a.getIdentificador(), a.getEstado().toString(), 2,config,sql);
+				AnuncioDAO.update(a.getIdentificador(), a.getEstado().toString(),config,sql);
 		        System.out.println("Anuncio publicado correctamente");
 			}
 			else {
@@ -68,7 +68,7 @@ public class Usuario extends Contacto {
 		public void ArchivarAnuncio (Anuncio a, String usuario,InputStream config, InputStream sql) {
 			if(a.getUsuario_propietario().equals(usuario)) {
 				a.setEstado(Estado.archivado);
-				AnuncioDAO.update(a.getIdentificador(), a.getEstado().toString(), 3,config,sql);
+				AnuncioDAO.update(a.getIdentificador(), a.getEstado().toString(),config,sql);
 		        System.out.println("Anuncio archivado correctamente");
 			}
 			else {
