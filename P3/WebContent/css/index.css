@@ -1,11 +1,19 @@
+* {box-sizing: border-box;}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .topnav {
   overflow: hidden;
-  background-color: #333;
+  background-color: #e9e9e9;
 }
 
 .topnav a {
   float: left;
-  color: #f2f2f2;
+  display: block;
+  color: black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -18,41 +26,49 @@
 }
 
 .topnav a.active {
-  background-color: #4CAF50;
+  background-color: #2196F3;
   color: white;
 }
 
-* {
-  box-sizing: border-box;
+.topnav .search-container {
+  float: right;
 }
 
-form.example input[type=text] {
-  padding: 10px;
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
   font-size: 17px;
-  border: 1px solid grey;
-  float: left;
-  width: 80%;
-  background: #f1f1f1;
+  border: none;
 }
 
-form.example button {
-  float: left;
-  width: 20%;
-  padding: 10px;
-  background: #2196F3;
-  color: white;
+.topnav .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
   font-size: 17px;
-  border: 1px solid grey;
-  border-left: none;
+  border: none;
   cursor: pointer;
 }
 
-form.example button:hover {
-  background: #0b7dda;
+.topnav .search-container button:hover {
+  background: #ccc;
 }
 
-form.example::after {
-  content: "";
-  clear: both;
-  display: table;
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+  }
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;  
+  }
 }
