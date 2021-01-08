@@ -6,6 +6,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Update</title>
+	<link rel="stylesheet" href="../../css/index.css">
+	<link rel="stylesheet" href="../../css/CrearAnuncio.css">
 	<script>
 	function valida(){
 		var fecha = document.getElementById("fecha_de_nacimiento").value;
@@ -25,19 +27,56 @@
 </head>
 <body>
 
-	<p>Rellena los campos deseados para actualizar los datos de contacto</p>
 
+<div class="topnav">
+  <a href="/P3/index.jsp">Inicio</a>
+  <a href="/P3/mvc/view/aboutView.jsp">Sobre Nosotros</a>
+</div>
+
+<div class="container">
+	<p>Rellena los campos deseados para actualizar los datos de contacto</p>
 	<form method="post" action="/P3/EditarPerfil" onsubmit="valida()">
+    <div class="row">
+      <div class="col-25">
 		<label for="nombre">Nombre: </label> 
-		<input type="text" name="nombre"><br />
-		<br /> 
+      </div>
+      <div class="col-75">
+		<input type="text" id="nombre" name="nombre" required><br />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
 		<label for="apellidos">Apellidos: </label> 
-		<input type="text" name="apellidos"><br />
-		<br /> <label for="fecha_de_nacimiento">Fecha de nacimiento:</label> 
-		<input type="text" name="fecha_de_nacimiento" placeholder="yyyy-mm-dd"><br />
-		<br /> <label for="password">Password: </label> 
-		<input type="password" name="password"><br />
-		<%
+      </div>
+      <div class="col-75">
+		<input type="text" id="apellidos" name="apellidos" required><br />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+		<br /> <label for="fecha_de_nacimiento">Fecha de nacimiento: </label>
+      </div>
+      <div class="col-75">
+		<input type="date" id="fecha_de_nacimiento" name="fecha_de_nacimiento" placeholder="yyyy-mm-dd" required><br />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+		<label for="email">Email: </label> 
+      </div>
+      <div class="col-75">
+		<input type="text" id="email" name="email" required><br />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+		<label for="password">Password: </label> 
+      </div>
+      <div class="col-75">
+		<input type="password" id="password" name="password" required><br />
+      </div>
+    </div>
+    	<%
 		String fichero = application.getInitParameter("config.properties");
 		java.io.InputStream conf = application.getResourceAsStream(fichero);
 		String fichero2 = application.getInitParameter("sql.properties");
@@ -46,16 +85,32 @@
 		InteresDAO idao = new InteresDAO();
 		String intereses = idao.consultaInteres(conf, sql);
 		%>
-		<br />
-		<label id="intereses">La lista de intereses posibles son: <%=intereses.substring(0, intereses.length()-2)%></label>
-		<br /> 
-		<label for="interes">Interes: </label> <input type="text" name="interes"><br />
-		<br /> 
-		<label for="edad">Edad: </label> <input type="number" name="edad"><br /> <br /> 
-		<input type="submit" value="Actualizar"><br />
-		<br />
-		<input type="submit" value="Volver al perfil" />
-	</form>
+      <div class="row">
+      <div class="col-25">
+      	<label id="intereses">La lista de intereses posibles son: <%=intereses.substring(0, intereses.length()-2)%></label>
+      </div>
+      <div class="col-75">
+		<input type="text" id="interes" name="interes" required><br />
+      </div>
+    </div>  
+    <div class="row">
+      <div class="col-25">
+		<label for="edad">Edad: </label> 
+      </div>
+      <div class="col-75">
+		<input type="number" id="edad" name="edad" required><br />
+      </div>
+    </div>
+    <div class="row">
+      <input type="submit" value="Actualizar">
+      <input type="button" value="Volver a la pagina inicial" onclick="volver()" />
+      
+    </div>
+  </form>
+</div>
+
+
+
 	
 
 </body>

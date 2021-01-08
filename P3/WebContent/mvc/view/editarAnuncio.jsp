@@ -6,6 +6,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Editar Anuncio</title>
+	<link rel="stylesheet" href="../../css/index.css">
+	<link rel="stylesheet" href="../../css/CrearAnuncio.css">
 	<script>
 	function valida(){
 		var fecha = document.getElementById("fecha_de_publicacion").value;
@@ -24,24 +26,52 @@
 	</script>
 </head>
 <body>
+
 	<%session = request.getSession();
 	  Anuncio a = (Anuncio)session.getAttribute("anuncio");
 	%>
+
+<div class="topnav">
+  <a href="/P3/index.jsp">Inicio</a>
+  <a href="/P3/mvc/view/aboutView.jsp">Sobre Nosotros</a>
+</div>
+
+<div class="container">
 	<form method="post" action="/P3/EditarAnuncio" >
-		<label for="titulo">Titulo: </label> 
+    <div class="row">
+      <div class="col-25">
+        <label for="titulo">Título</label>
+      </div>
+      <div class="col-75">
 		<input type="text" id="titulo" name="titulo" value="<%=a.getTitulo() %>"><br />
-		<br /> 
-		<label for="cuerpo">Cuerpo: </label>
-		<textarea id="cuerpo" name="cuerpo"><%=a.getCuerpo() %></textarea><br />
-		<br />
-		<label for="fecha_de_publicacion">Fecha de publicacion: </label> 
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="lname">Fecha de publicación</label>
+      </div>
+      <div class="col-75">
 		<input type="date" id="fecha_de_publicacion" name="fecha_de_publicacion" placeholder="yyyy-mm-dd" value="<%=a.getFecha_de_publicacion()%>"><br />
-		<br /> 
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="subject">Cuerpo</label>
+      </div>
+      <div class="col-75">
+        <textarea id="cuerpo" name="cuerpo"<%=a.getCuerpo() %> placeholder="Escribe el anuncio.." style="height:200px" required></textarea>        
+      </div>
+    </div>
+    <div class="row">
 		<input type="submit" value="Actualizar">
-		
-		<br /><br />
-		<input type="button" value="Volver al perfil" onclick="volver()" />
-	</form>
+      <input type="button" value="Volver a la pagina inicial" onclick="volver()" />
+      
+    </div>
+  </form>
+</div>
+
+
+
 
 </body>
 </html>

@@ -43,7 +43,7 @@
   <form method="post" action="/P3/CrearAnuncio" onsubmit="valida()">
     <div class="row">
       <div class="col-25">
-        <label for="fname">Título</label>
+        <label for="titulo">Título</label>
       </div>
       <div class="col-75">
 		<input type="text" id="titulo" name="titulo" placeholder="Escribe el titulo.." required>
@@ -55,7 +55,7 @@
         <label for="lname">Fecha de publicación</label>
       </div>
       <div class="col-75">
-        <input type="text" id="fecha_de_publicacion" name="fecha_de_publicacion" placeholder="Escribe la fecha.." required>        
+        <input type="text" id="fecha_de_publicacion" name="fecha_de_publicacion" placeholder="yyyy-mm-dd" required>        
       </div>
     </div>
     <div class="row">
