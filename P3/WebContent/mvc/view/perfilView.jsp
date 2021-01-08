@@ -14,38 +14,45 @@
 <head>
 <meta charset="UTF-8">
 <title>Mi perfil</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="../../css/perfil.css">
-<link rel="stylesheet" href="../../css/header.css">
-<link rel="stylesheet" href="../../css/footer.css">
+<link rel="stylesheet" href="../../css/index.css">
+
 </head>
+
 <body>
-	<div class="container3">
-      <%@ include file="../../includes/header.jsp" %>
-      <div class="info-perfil" align=center>
-        <h1>MI PERFIL</h1>
-        <table>
-          <tr align=left>
-           <th><img src="https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14046.jpg" alt="persona1" width="200" height="200"> </th>
-           <th align="left">
-           <%
-	        session = request.getSession();
-	        CustomerBean customer = (CustomerBean)session.getAttribute("customerBean");
-	        %>
-             <ul>
-              <li>NOMBRE: <%=customer.getNombre() %></li>
-              <li>APELLIDOS: <%=customer.getApellidos() %></li>
-              <li>FECHA DE NACIMIENTO: <%=customer.getFecha_de_nacimiento() %></li>
-              <li>CORREO: <%=customer.getEmailUser() %></li>
-              <li>INTERES: <%=customer.getInteres() %></li>
-              <li>EDAD: <%=customer.getEdad() %></li>
-             </ul>
-             <button id="botones" onclick="window.location.assign('./editarPerfilView.jsp');">EDITAR PERFIL</button>
-          </tr>
-        </table>
-      </div>
-      
-      <div class="mis_anuncios">
-      	<h2>Anuncios</h2>
+
+<div class="topnav">
+  <a href="/P3/index.jsp">Inicio</a>
+  <a href="#">Crear Anuncio</a>
+  <a href="/P3/editarPerfilView.jsp">Editar Perfil</a>
+  <a href="#">Cerrar Sesion</a>
+  <div class="search-container">
+    <form action="/action_page.php">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="side">
+           <img src="https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14046.jpg" alt="persona1" width="150" height="150">
+    <%
+	    session = request.getSession();
+	    CustomerBean customer = (CustomerBean)session.getAttribute("customerBean");
+	 %>
+	 
+    <h3>Información</h3>
+    <p><%=customer.getNombre() %> <%=customer.getApellidos() %>, <%=customer.getEdad() %></p>
+    <p><%=customer.getFecha_de_nacimiento() %></p>
+    <p><%=customer.getEmailUser() %></p>
+    <p><%=customer.getInteres() %></p>
+  </div>
+  
+  <div class="main">
+    <h2>Mis Anuncios</h2>
         <%
 	    String fichero = getServletContext().getInitParameter("config.properties");
 		java.io.InputStream conf = getServletContext().getResourceAsStream(fichero);
@@ -57,26 +64,27 @@
 			out.print("No tiene anuncios creados");
 	   	for(int i=0; i<anuncios.size(); i++){
 	   	%>
-        <table class="anuncio">
-		    <tr align=left>
-           <th><img align="right" src="https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg" alt="persona2" width="100" height="100"></th>
-	           <th align="left">
-	             <ul>
-	              <li>TITULO: <%out.println(anuncios.get(i).getTitulo());%></li>
-	              <li>CUERPO: <%out.println(anuncios.get(i).getCuerpo());%></li>
-	              <li>FECHA DE PUBLICACION: <%out.println(anuncios.get(i).getFecha_de_publicacion());%></li>
+	   	
+    	<div class="anbackground">
+    		<p><%out.println(anuncios.get(i).getTitulo());%></p>
+    		<p><%out.println(anuncios.get(i).getCuerpo());%></p>
+			<p>
+    			<%out.println(anuncios.get(i).getFecha_de_publicacion());%>	
 	              <%if (anuncios.get(i).getType().equals(Type.flash)) {%>
-			           <li>FECHA FIN: <%out.println(anuncios.get(i).getFecha_fin());%></li>
+			           ---- <%out.println(anuncios.get(i).getFecha_fin());%>
 			      <%} %>
-	              <li>TIPO: <%out.println(anuncios.get(i).getType()); %></li>
+   			</p> 	
+			<p>
+    			Tipo: <%out.println(anuncios.get(i).getType()); %>				
 	              <% if (anuncios.get(i).getType().equals(Type.individualizado)) {%>
-	              	<li>USUARIOS DESTINATARIOS: <%out.println(anuncios.get(i).getUsuarios_destinatarios()); %></li>
-	              <% } %>
-	              <li>ESTADO: <%out.println(anuncios.get(i).getEstado()); %></li>
+	              	---- Usuarios Destinatarios: <%out.println(anuncios.get(i).getUsuarios_destinatarios()); %>
+	              <% } %>    		</p> 
+			<p>
+    			Estado: <%out.println(anuncios.get(i).getEstado()); %> 				
 	              <% if (anuncios.get(i).getType().equals(Type.tematico)){ %>
-	              <li>TEMA: <%out.println(anuncios.get(i).getTema()); %></li>
-	              	<%} %>
-	             </ul>
+	              ---- Tema: <%out.println(anuncios.get(i).getTema()); %>
+	              	<%} %>   			  
+	        </p> 
 	             <%if (anuncios.get(i).getEstado().equals(Estado.editado)){ 
 	         		
 	            	 SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd"); 
@@ -116,12 +124,14 @@
 		             	<button name="eliminar_anuncio" value="<%=anuncios.get(i).getIdentificador()%>">Eliminar</button>
 		             </form>
 		         <%} %>
-	           </th>
-        	</tr>
 		<% } %>
-        </table>
-      </div>
-	</div>
-     
+	        
+   	 	</div>
+        <br>
+
+
+  </div>
+</div>
 </body>
+
 </html>
